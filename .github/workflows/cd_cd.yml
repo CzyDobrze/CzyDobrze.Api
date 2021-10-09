@@ -6,9 +6,5 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Setup .NET Core SDK
-        uses: actions/setup-dotnet@v1.8.2
-        with:
-          dotnet-version: '5.0.x'
       - name: Run Test
         run: ./build.cmd test
