@@ -34,8 +34,6 @@ class Build : NukeBuild
     [Parameter("Tag for docker image")] readonly string Tag;
 
     [Solution] readonly Solution Solution;
-    [GitRepository] readonly GitRepository GitRepository;
-    [GitVersion] readonly GitVersion GitVersion;
 
     AbsolutePath SourceDirectory => RootDirectory / "src";
     AbsolutePath TestsDirectory => RootDirectory / "tests";
@@ -64,9 +62,6 @@ class Build : NukeBuild
             DotNetBuild(s => s
                 .SetProjectFile(Solution)
                 .SetConfiguration(Configuration)
-                .SetAssemblyVersion(GitVersion.AssemblySemVer)
-                .SetFileVersion(GitVersion.AssemblySemFileVer)
-                .SetInformationalVersion(GitVersion.InformationalVersion)
                 .EnableNoRestore());
         });
 
@@ -76,6 +71,18 @@ class Build : NukeBuild
             DockerTasks.DockerBuild(s => s
                 .SetTag(Tag)
                 .SetPath(Solution.Directory)
+            );
+        });
+
+    Target Test => _ => _
+        .DependsOn(Compile)
+        .Executes(() =>
+        {
+            DotNetTest(s => s
+                .SetProjectFile(Solution)
+                .SetConfiguration(Configuration)
+                .EnableNoBuild()
+                .EnableNoRestore()
             );
         });
 }

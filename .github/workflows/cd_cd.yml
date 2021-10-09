@@ -1,0 +1,14 @@
+﻿on: [pull_request, push]
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v1.8.2
+        with:
+          dotnet-version: '5.0.x'
+      - name: Run Test
+        run: ./build.cmd test

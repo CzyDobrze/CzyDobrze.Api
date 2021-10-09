@@ -74,7 +74,8 @@
               "BuildDockerImage",
               "Clean",
               "Compile",
-              "Restore"
+              "Restore",
+              "Test"
             ]
           }
         },
@@ -95,7 +96,8 @@
               "BuildDockerImage",
               "Clean",
               "Compile",
-              "Restore"
+              "Restore",
+              "Test"
             ]
           }
         },
