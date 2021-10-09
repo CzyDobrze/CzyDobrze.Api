@@ -1,7 +1,4 @@
 ﻿on: [pull_request, push]
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
 jobs:
   test:
     name: Run tests
@@ -21,8 +18,8 @@ jobs:
       - name: Build & push docker image
         uses: mr-smithers-excellent/docker-build-push@v5.6
         with:
-          image: ghcr.io/czydobre/czydobre.api
-          registry: ${{ env.REGISTRY }}
+          image: czydobre/czydobre.api
+          registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           addLatest: true
