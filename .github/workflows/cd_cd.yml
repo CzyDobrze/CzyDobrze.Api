@@ -1,4 +1,7 @@
 ﻿on: [pull_request, push]
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 jobs:
   test:
     name: Run tests
@@ -15,5 +18,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Run BuildDockerImage
-        run: ./build.cmd BuildDockerImage --tag czydobrze/api:latest
+      - name: Build & push docker image
+        uses: mr-smithers-excellent/docker-build-push@v5.6
+        with:
+          image: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}
+          registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.GHCR_USERNAME }}
+          password: ${{ secrets.GHCR_TOKEN }}
