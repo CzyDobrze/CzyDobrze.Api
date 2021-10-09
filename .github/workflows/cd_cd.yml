@@ -16,4 +16,4 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Run BuildDockerImage
-        run: ./build.cmd BuildDockerImage --tag CzyDobrze/CzyDobrze.Api:latest
+        run: ./build.cmd BuildDockerImage --tag czydobrze/api:latest
