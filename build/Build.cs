@@ -7,6 +7,7 @@ using Nuke.Common.Git;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
+using Nuke.Common.Tools.Docker;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Utilities.Collections;
@@ -29,6 +30,8 @@ class Build : NukeBuild
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
+
+    [Parameter("Tag for docker image")] readonly string Tag;
 
     [Solution] readonly Solution Solution;
     [GitRepository] readonly GitRepository GitRepository;
@@ -67,4 +70,12 @@ class Build : NukeBuild
                 .EnableNoRestore());
         });
 
+    Target BuildDockerImage => _ => _
+        .Executes(() =>
+        {
+            DockerTasks.DockerBuild(s => s
+                .SetTag(Tag)
+                .SetPath(Solution.Directory)
+            );
+        });
 }

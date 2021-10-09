@@ -71,6 +71,7 @@
           "items": {
             "type": "string",
             "enum": [
+              "BuildDockerImage",
               "Clean",
               "Compile",
               "Restore"
@@ -81,12 +82,17 @@
           "type": "string",
           "description": "Path to a solution file that is automatically loaded"
         },
+        "Tag": {
+          "type": "string",
+          "description": "Tag for docker image"
+        },
         "Target": {
           "type": "array",
           "description": "List of targets to be invoked. Default is '{default_target}'",
           "items": {
             "type": "string",
             "enum": [
+              "BuildDockerImage",
               "Clean",
               "Compile",
               "Restore"
