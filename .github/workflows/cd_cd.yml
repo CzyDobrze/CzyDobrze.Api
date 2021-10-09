@@ -18,7 +18,7 @@ jobs:
       - name: Build & push docker image
         uses: mr-smithers-excellent/docker-build-push@v5.6
         with:
-          image: czydobre/czydobre.api
+          image: czydobre.api
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
