@@ -17,7 +17,7 @@ jobs:
   release:
     name: Build and publish docker image
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/head/main' }}
+    if: github.event_name == 'push' && github.ref == 'refs/head/main'
     needs: test
     steps:
       - name: Checkout code
