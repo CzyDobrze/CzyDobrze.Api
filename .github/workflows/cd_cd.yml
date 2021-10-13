@@ -1,0 +1,32 @@
+﻿on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run Test
+        run: ./build.cmd test
+  release:
+    name: Build and publish docker image
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/head/main' }}
+    needs: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build & push docker image
+        uses: mr-smithers-excellent/docker-build-push@v5.6
+        with:
+          image: czydobrze.api
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          addLatest: true
