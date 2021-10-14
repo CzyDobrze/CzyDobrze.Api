@@ -3,7 +3,7 @@ using CzyDobrze.Core;
 
 namespace CzyDobrze.Domain.Entities.Content
 {
-    public class Course : Entity
+    public class Textbook : Entity
     {
         public string Title { get; }
         public string Subject { get; }

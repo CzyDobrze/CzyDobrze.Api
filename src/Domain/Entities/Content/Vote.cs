@@ -1,18 +1,17 @@
 ﻿using System;
 using CzyDobrze.Core;
-using CzyDobrze.Domain.Enums;
 
 namespace CzyDobrze.Domain.Entities.Content
 {
     public class Vote : Entity
     {
-        public Vote(Guid voter, VoteType type)
+        public Vote(Guid voter, int value)
         {
             Voter = voter;
-            Type = type;
+            Value = value;
         }
         
         public Guid Voter { get; }
-        public VoteType Type { get; }
+        public int Value { get; }
     }
 }
