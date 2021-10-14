@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CzyDobrze.Core;
 
-namespace CzyDobrze.Domain.Entities.Content
+namespace CzyDobrze.Domain.Content
 {
     public class Section : Entity
     {

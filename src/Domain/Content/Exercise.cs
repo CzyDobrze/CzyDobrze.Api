@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using CzyDobrze.Core;
 
-namespace CzyDobrze.Domain.Entities.Content
+namespace CzyDobrze.Domain.Content
 {
     public class Exercise : Entity
     {

@@ -1,6 +1,6 @@
 ﻿using CzyDobrze.Core;
 
-namespace CzyDobrze.Domain.Entities.Users
+namespace CzyDobrze.Domain.Users
 {
     public class Moderator : Entity
     {

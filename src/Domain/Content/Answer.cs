@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CzyDobrze.Core;
+using CzyDobrze.Domain.Users;
 
-namespace CzyDobrze.Domain.Entities.Content
+namespace CzyDobrze.Domain.Content
 {
     public class Answer : Entity
     {
-        public Guid AuthorId { get; }
+        public User Author { get; }
         public string Content { get; }
         
         public bool Accepted { get; }

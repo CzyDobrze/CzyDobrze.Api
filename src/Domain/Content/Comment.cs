@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CzyDobrze.Core;
-using CzyDobrze.Domain.Entities.Users;
+using CzyDobrze.Domain.Users;
 
-namespace CzyDobrze.Domain.Entities.Content
+namespace CzyDobrze.Domain.Content
 {
     public class Comment : Entity
     {
