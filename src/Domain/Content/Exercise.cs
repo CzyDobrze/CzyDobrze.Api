@@ -5,10 +5,23 @@ namespace CzyDobrze.Domain.Content
 {
     public class Exercise : Entity
     {
+        private Exercise()
+        {
+            // For EF
+        }
+
+        public Exercise(string inBookId, string description)
+        {
+            InBookId = inBookId;
+            Description = description;
+            Answers = new List<Answer>();
+            Comments = new List<Comment>();
+        }
+        
         public string InBookId { get; }
         public string Description { get; }
         
-        public IEnumerable<Answer> Answers { get; }
-        public IEnumerable<Comment> Comments { get; }
+        public IList<Answer> Answers { get; }
+        public IList<Comment> Comments { get; }
     }
 }
