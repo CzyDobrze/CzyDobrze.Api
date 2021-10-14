@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using CzyDobrze.Core;
 
-namespace CzyDobrze.Domain.Entities
+namespace CzyDobrze.Domain.Entities.Content
 {
     public class Answer : Entity
     {
@@ -9,5 +11,7 @@ namespace CzyDobrze.Domain.Entities
         public string Content { get; }
         
         public bool Accepted { get; }
+        
+        public IEnumerable<Vote> Votes { get; }
     }
 }

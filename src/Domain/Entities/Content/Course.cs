@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CzyDobrze.Core;
 
-namespace CzyDobrze.Domain.Entities
+namespace CzyDobrze.Domain.Entities.Content
 {
     public class Course : Entity
     {
@@ -10,6 +9,7 @@ namespace CzyDobrze.Domain.Entities
         public string Subject { get; }
         public string Publisher { get; }
         public int ClassYear { get; }
+        
         public IEnumerable<Section> Sections { get; }
     }
 }
