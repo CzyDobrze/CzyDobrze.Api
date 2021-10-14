@@ -20,6 +20,6 @@ namespace CzyDobrze.Domain.Content
         public string Title { get; }
         public string Description { get; }
         
-        public IList<Exercise> Exercises { get; }
+        public IList<Exercise> Exercises { get; } // TODO wrap using IEnumerable<> to prevent direct write access
     }
 }

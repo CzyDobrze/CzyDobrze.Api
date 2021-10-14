@@ -21,6 +21,6 @@ namespace CzyDobrze.Domain.Content
         public User Author { get; }
         public string Content { get; }
         
-        public IList<Vote> Votes { get; }
+        public IList<Vote> Votes { get; } // TODO wrap using IEnumerable<> to prevent direct write access
     }
 }

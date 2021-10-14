@@ -21,7 +21,7 @@ namespace CzyDobrze.Domain.Content
         public string InBookId { get; }
         public string Description { get; }
         
-        public IList<Answer> Answers { get; }
-        public IList<Comment> Comments { get; }
+        public IList<Answer> Answers { get; } // TODO wrap using IEnumerable<> to prevent direct write access
+        public IList<Comment> Comments { get; } // TODO wrap using IEnumerable<> to prevent direct write access
     }
 }

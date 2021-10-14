@@ -24,6 +24,6 @@ namespace CzyDobrze.Domain.Content
         
         public bool Accepted { get; }
         
-        public IList<Vote> Votes { get; }
+        public IList<Vote> Votes { get; } // TODO wrap using IEnumerable<> to prevent direct write access
     }
 }

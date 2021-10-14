@@ -2,7 +2,8 @@
 
 namespace CzyDobrze.Core
 {
-    public abstract class Entity
+    // TODO add base Entity fields auto handling
+    public abstract class Entity 
     {
         protected Entity()
         {

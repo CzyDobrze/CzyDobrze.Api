@@ -24,6 +24,6 @@ namespace CzyDobrze.Domain.Content
         public string Publisher { get; }
         public int ClassYear { get; }
         
-        public IList<Section> Sections { get; }
+        public IList<Section> Sections { get; } // TODO wrap using IEnumerable<> to prevent direct write access
     }
 }
