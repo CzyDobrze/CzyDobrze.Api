@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CzyDobrze.Core;
+using CzyDobrze.Domain.Content.Exercise.Exceptions;
 
 namespace CzyDobrze.Domain.Content.Exercise
 {
@@ -15,8 +16,8 @@ namespace CzyDobrze.Domain.Content.Exercise
 
         public Exercise(string inBookId, string description)
         {
-            InBookId = inBookId;
-            Description = description;
+            SetInBookId(inBookId);
+            SetDescription(description);
         }
         
         public string InBookId { get; private set; }
@@ -25,12 +26,13 @@ namespace CzyDobrze.Domain.Content.Exercise
         public IEnumerable<Answer.Answer> Answers => _answers;
         public IEnumerable<Comment.Comment> Comments => _comments;
 
-        public void UpdateInBookId(string inBookId)
+        public void SetInBookId(string inBookId)
         {
+            if (string.IsNullOrWhiteSpace(inBookId)) throw new ExerciseInBookIdMustNotBeEmptyException();
             InBookId = inBookId;
         }
 
-        public void UpdateDescription(string description)
+        public void SetDescription(string description)
         {
             Description = description;
         }
