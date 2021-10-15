@@ -15,7 +15,22 @@ namespace CzyDobrze.Domain.Users
             Points = points;
         }
         
-        public string DisplayName { get; }
-        public int Points { get; }
+        public string DisplayName { get; private set; }
+        public int Points { get; private set; }
+
+        public void UpdateDisplayName(string displayName)
+        {
+            DisplayName = displayName;
+        }
+        
+        public void AddPoints(int points)
+        {
+            Points += points;
+        }
+
+        public void TakePoints(int points)
+        {
+            Points -= points;
+        }
     }
 }
