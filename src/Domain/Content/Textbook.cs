@@ -20,10 +20,10 @@ namespace CzyDobrze.Domain.Content
             ClassYear = classYear;
         }
         
-        public string Title { get; private set; }
-        public string Subject { get; private set; }
-        public string Publisher { get; private set; }
-        public int ClassYear { get; private set; }
+        public string Title { get; private set; } 
+        public string Subject { get; private set; } // should it have its own Entity/VO? 
+        public string Publisher { get; private set; } // same as Subject? 
+        public int ClassYear { get; private set; } // we'll just use classes from 1 to 12
 
         public IEnumerable<Section> Sections => _sections;
 
