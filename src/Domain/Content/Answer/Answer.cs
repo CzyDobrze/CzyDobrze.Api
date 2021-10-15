@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using CzyDobrze.Core;
-using CzyDobrze.Domain.Users;
+using CzyDobrze.Domain.Content.Answer.Exceptions;
+using CzyDobrze.Domain.Users.User;
 
-namespace CzyDobrze.Domain.Content
+namespace CzyDobrze.Domain.Content.Answer
 {
     public class Answer : Entity
     {
-        private readonly IList<Vote> _votes = new List<Vote>();
+        private readonly IList<Vote.Vote> _votes = new List<Vote.Vote>();
         
         private Answer()
         {
@@ -16,8 +17,9 @@ namespace CzyDobrze.Domain.Content
         public Answer(User author, string content)
         {
             Author = author;
-            Content = content;
             Accepted = false;
+            
+            SetContent(content);
         }
         
         public User Author { get; }
@@ -25,11 +27,12 @@ namespace CzyDobrze.Domain.Content
         
         public bool Accepted { get; private set; }
         
-        public IEnumerable<Vote> Votes => _votes;
+        public IEnumerable<Vote.Vote> Votes => _votes;
 
-        public void UpdateContent(string newContent)
+        public void SetContent(string content)
         {
-            Content = newContent;
+            if (string.IsNullOrWhiteSpace(content)) throw new AnswerContentMustNotBeEmptyException();
+            Content = content;
         }
 
         public void Accept()
@@ -42,12 +45,12 @@ namespace CzyDobrze.Domain.Content
             Accepted = false;
         }
 
-        public void AddVote(Vote vote)
+        public void AddVote(Vote.Vote vote)
         {
             _votes.Add(vote);
         }
 
-        public void DeleteVote(Vote vote)
+        public void DeleteVote(Vote.Vote vote)
         {
             _votes.Remove(vote);
         }

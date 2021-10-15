@@ -1,7 +1,7 @@
 ﻿using System;
 using CzyDobrze.Core;
 
-namespace CzyDobrze.Domain.Content
+namespace CzyDobrze.Domain.Content.Vote
 {
     public class Vote : Entity
     {
