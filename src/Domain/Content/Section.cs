@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using CzyDobrze.Core;
 
 namespace CzyDobrze.Domain.Content
 {
     public class Section : Entity
     {
+        private readonly IList<Exercise> _exercises = new List<Exercise>();
+        
         private Section()
         {
             // For EF
@@ -14,12 +17,31 @@ namespace CzyDobrze.Domain.Content
         {
             Title = title;
             Description = description;
-            Exercises = new List<Exercise>();
         }
         
-        public string Title { get; }
-        public string Description { get; }
-        
-        public IList<Exercise> Exercises { get; } // TODO wrap using IEnumerable<> to prevent direct write access
+        public string Title { get; private set; }
+        public string Description { get; private set; }
+
+        public IEnumerable<Exercise> Exercises => _exercises;
+
+        public void UpdateTitle(string title)
+        {
+            Title = title;
+        }
+
+        public void UpdateDescription(string description)
+        {
+            Description = description;
+        }
+
+        public void AddExercise(Exercise exercise)
+        {
+            _exercises.Add(exercise);
+        }
+
+        public void DeleteExercise(Exercise exercise)
+        {
+            _exercises.Remove(exercise);
+        }
     }
 }

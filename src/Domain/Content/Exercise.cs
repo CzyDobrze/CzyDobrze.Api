@@ -5,6 +5,9 @@ namespace CzyDobrze.Domain.Content
 {
     public class Exercise : Entity
     {
+        private readonly IList<Answer> _answers = new List<Answer>();
+        private readonly IList<Comment> _comments = new List<Comment>();
+        
         private Exercise()
         {
             // For EF
@@ -14,14 +17,42 @@ namespace CzyDobrze.Domain.Content
         {
             InBookId = inBookId;
             Description = description;
-            Answers = new List<Answer>();
-            Comments = new List<Comment>();
         }
         
-        public string InBookId { get; }
-        public string Description { get; }
-        
-        public IList<Answer> Answers { get; } // TODO wrap using IEnumerable<> to prevent direct write access
-        public IList<Comment> Comments { get; } // TODO wrap using IEnumerable<> to prevent direct write access
+        public string InBookId { get; private set; }
+        public string Description { get; private set; }
+
+        public IEnumerable<Answer> Answers => _answers;
+        public IEnumerable<Comment> Comments => _comments;
+
+        public void UpdateInBookId(string inBookId)
+        {
+            InBookId = inBookId;
+        }
+
+        public void UpdateDescription(string description)
+        {
+            Description = description;
+        }
+
+        public void AddAnswer(Answer answer)
+        {
+            _answers.Add(answer);
+        }
+
+        public void DeleteAnswer(Answer answer)
+        {
+            _answers.Remove(answer);
+        }
+
+        public void AddComment(Comment comment)
+        {
+            _comments.Add(comment);
+        }
+
+        public void DeleteComment(Comment comment)
+        {
+            _comments.Remove(comment);
+        }
     }
 }

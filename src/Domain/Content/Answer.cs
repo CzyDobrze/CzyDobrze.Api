@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using CzyDobrze.Core;
 using CzyDobrze.Domain.Users;
 
@@ -6,6 +7,8 @@ namespace CzyDobrze.Domain.Content
 {
     public class Answer : Entity
     {
+        private readonly IList<Vote> _votes = new List<Vote>();
+        
         private Answer()
         {
             // For EF
@@ -16,14 +19,38 @@ namespace CzyDobrze.Domain.Content
             Author = author;
             Content = content;
             Accepted = false;
-            Votes = new List<Vote>();
         }
         
         public User Author { get; }
-        public string Content { get; }
+        public string Content { get; private set; }
         
-        public bool Accepted { get; }
+        public bool Accepted { get; private set; }
         
-        public IList<Vote> Votes { get; } // TODO wrap using IEnumerable<> to prevent direct write access
+        public IEnumerable<Vote> Votes => _votes;
+
+        public void UpdateContent(string newContent)
+        {
+            Content = newContent;
+        }
+
+        public void Accept()
+        {
+            Accepted = true;
+        }
+
+        public void Reject()
+        {
+            Accepted = false;
+        }
+
+        public void AddVote(Vote vote)
+        {
+            _votes.Add(vote);
+        }
+
+        public void DeleteVote(Vote vote)
+        {
+            _votes.Remove(vote);
+        }
     }
 }

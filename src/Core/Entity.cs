@@ -2,12 +2,11 @@
 
 namespace CzyDobrze.Core
 {
-    // TODO add base Entity fields auto handling
     public abstract class Entity 
     {
         protected Entity()
         {
-            //For EF
+            // For EF
         }
 
         protected Entity(Guid id, DateTime created, DateTime updated)
@@ -16,8 +15,8 @@ namespace CzyDobrze.Core
             Created = created;
             Updated = updated;
         }
-        
-        public Guid Id { get; }
+
+        public Guid Id { get; } = Guid.NewGuid();
         public DateTime Created { get; }
         public DateTime Updated { get; private set; }
 

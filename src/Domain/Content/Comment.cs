@@ -6,6 +6,8 @@ namespace CzyDobrze.Domain.Content
 {
     public class Comment : Entity
     {
+        private readonly IList<Vote> _votes = new List<Vote>();
+        
         private Comment()
         {
             // For EF
@@ -15,12 +17,26 @@ namespace CzyDobrze.Domain.Content
         {
             Author = author;
             Content = content;
-            Votes = new List<Vote>();
         }
 
         public User Author { get; }
-        public string Content { get; }
+        public string Content { get; private set; }
+
+        public IEnumerable<Vote> Votes => _votes;
+
+        public void UpdateContent(string newContent)
+        {
+            Content = newContent;
+        }
         
-        public IList<Vote> Votes { get; } // TODO wrap using IEnumerable<> to prevent direct write access
+        public void AddVote(Vote vote)
+        {
+            _votes.Add(vote);
+        }
+
+        public void DeleteVote(Vote vote)
+        {
+            _votes.Remove(vote);
+        }
     }
 }

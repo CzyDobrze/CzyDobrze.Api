@@ -5,6 +5,8 @@ namespace CzyDobrze.Domain.Content
 {
     public class Textbook : Entity
     {
+        private readonly IList<Section> _sections = new List<Section>();
+        
         private Textbook()
         {
             // For EF
@@ -16,14 +18,43 @@ namespace CzyDobrze.Domain.Content
             Subject = subject;
             Publisher = publisher;
             ClassYear = classYear;
-            Sections = new List<Section>();
         }
         
-        public string Title { get; }
-        public string Subject { get; }
-        public string Publisher { get; }
-        public int ClassYear { get; }
-        
-        public IList<Section> Sections { get; } // TODO wrap using IEnumerable<> to prevent direct write access
+        public string Title { get; private set; }
+        public string Subject { get; private set; }
+        public string Publisher { get; private set; }
+        public int ClassYear { get; private set; }
+
+        public IEnumerable<Section> Sections => _sections;
+
+        public void UpdateTitle(string title)
+        {
+            Title = title;
+        }
+
+        public void UpdateSubject(string subject)
+        {
+            Subject = subject;
+        }
+
+        public void UpdatePublisher(string publisher)
+        {
+            Publisher = publisher;
+        }
+
+        public void UpdateClassYear(int classYear)
+        {
+            ClassYear = classYear;
+        }
+
+        public void AddSection(Section section)
+        {
+            _sections.Add(section);
+        }
+
+        public void DeleteSection(Section section)
+        {
+            _sections.Remove(section);
+        }
     }
 }
