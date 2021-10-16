@@ -10,8 +10,8 @@ namespace CzyDobrze.Application.Common.Interfaces.Persistence.Content
         Task<Vote> ReadById(Guid id);
         Task<IEnumerable<Vote>> ReadAll();
         
-        Task Create(Vote entity);
-        Task Update(Vote entity);
+        Task<Vote> Create(Vote entity);
+        Task<Vote> Update(Vote entity);
         Task Delete(Vote entity);
     }
 }

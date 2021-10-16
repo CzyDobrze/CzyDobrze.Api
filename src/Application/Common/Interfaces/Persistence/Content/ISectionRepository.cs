@@ -10,8 +10,8 @@ namespace CzyDobrze.Application.Common.Interfaces.Persistence.Content
         Task<Section> ReadById(Guid id);
         Task<IEnumerable<Section>> ReadAll();
         
-        Task Create(Section entity);
-        Task Update(Section entity);
+        Task<Section> Create(Section entity);
+        Task<Section> Update(Section entity);
         Task Delete(Section entity);
     }
 }

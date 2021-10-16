@@ -10,8 +10,8 @@ namespace CzyDobrze.Application.Common.Interfaces.Persistence.Users
         Task<User> ReadById(Guid id);
         Task<IEnumerable<User>> ReadAll();
         
-        Task Create(User entity);
-        Task Update(User entity);
+        Task<User> Create(User entity);
+        Task<User> Update(User entity);
         Task Delete(User entity);
     }
 }
