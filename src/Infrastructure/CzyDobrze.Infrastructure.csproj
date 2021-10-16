@@ -10,4 +10,8 @@
     <ProjectReference Include="..\Domain\CzyDobrze.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Mono.Reflection" Version="2.0.0" />
+  </ItemGroup>
+
 </Project>

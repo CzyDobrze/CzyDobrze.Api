@@ -1,3 +1,4 @@
+using CzyDobrze.Api.Filters;
 using CzyDobrze.Api.Utils;
 using CzyDobrze.Application;
 using CzyDobrze.Infrastructure;
@@ -11,19 +12,24 @@ namespace CzyDobrze.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
         public IConfiguration Configuration { get; }
-
+        public IWebHostEnvironment Environment { get; }
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplication();
             services.AddInfrastructure();
 
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.Filters.Add(new ApiExceptionFilter(Environment));
+            });
             
             services.AddSwagger();
         }

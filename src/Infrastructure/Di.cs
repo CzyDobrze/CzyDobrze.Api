@@ -6,6 +6,8 @@ namespace CzyDobrze.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
+            services.AddDummyTextbookRepository();
+
             return services;
         }
     }
