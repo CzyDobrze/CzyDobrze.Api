@@ -10,7 +10,19 @@ using Mono.Reflection;
 
 namespace CzyDobrze.Infrastructure
 {
-    // TODO remove it - this is only an example and it's only here because app won't run with no implementation at all
+    /*
+     * This is a dummy (writing to singleton List) textbook repository
+     * which shows how it should work (uses Reflection to modify Core Entity fields - Id and Created).
+     * We don't need this but may be useful as a showcase or for Unit Tests. ~~ original commit message
+     *
+     * Actually, as we don't have working real implementation of repository,
+     * I had to merge it into main because the app won't run without it.
+     *
+     * When we will have persistence implementation this should be removed from 'main' branch,
+     * but may be here for reference/historical purposes (branch 'bsak2003/dummy-textbook-repository')
+     * or as showcase/for Unit Tests (as suggested by me originally :) 
+     */
+    
     internal static class DummyTextbookRepositoryDi
     {
         internal static IServiceCollection AddDummyTextbookRepository(this IServiceCollection services)
