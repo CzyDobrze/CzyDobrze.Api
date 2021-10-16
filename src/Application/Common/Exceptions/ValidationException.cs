@@ -7,14 +7,15 @@ namespace CzyDobrze.Application.Common.Exceptions
 {
     public class ValidationException : Exception
     {
+        public IDictionary<string, string[]> Errors { get; }
+        
         public ValidationException()
             : base("One or more validation failures have occurred.")
         {
             Errors = new Dictionary<string, string[]>();
         }
 
-        public ValidationException(IEnumerable<ValidationFailure> failures)
-            : this()
+        public ValidationException(IEnumerable<ValidationFailure> failures) : this()
         {
             var failureGroups = failures
                 .GroupBy(e => e.PropertyName, e => e.ErrorMessage);
@@ -27,8 +28,5 @@ namespace CzyDobrze.Application.Common.Exceptions
                 Errors.Add(propertyName, propertyFailures);
             }
         }
-
-        public IDictionary<string, string[]> Errors { get; }
     }
-
 }
