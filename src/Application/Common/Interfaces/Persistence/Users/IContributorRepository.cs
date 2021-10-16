@@ -10,8 +10,8 @@ namespace CzyDobrze.Application.Common.Interfaces.Persistence.Users
         Task<Contributor> ReadById(Guid id);
         Task<IEnumerable<Contributor>> ReadAll();
         
-        Task Create(Contributor entity);
-        Task Update(Contributor entity);
+        Task<Contributor> Create(Contributor entity);
+        Task<Contributor> Update(Contributor entity);
         Task Delete(Contributor entity);
     }
 }

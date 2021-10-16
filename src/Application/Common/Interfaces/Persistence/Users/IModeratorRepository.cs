@@ -10,8 +10,8 @@ namespace CzyDobrze.Application.Common.Interfaces.Persistence.Users
         Task<Moderator> ReadById(Guid id);
         Task<IEnumerable<Moderator>> ReadAll();
         
-        Task Create(Moderator entity);
-        Task Update(Moderator entity);
+        Task<Moderator> Create(Moderator entity);
+        Task<Moderator> Update(Moderator entity);
         Task Delete(Moderator entity);
     }
 }

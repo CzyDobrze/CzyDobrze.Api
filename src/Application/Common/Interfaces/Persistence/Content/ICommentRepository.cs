@@ -10,8 +10,8 @@ namespace CzyDobrze.Application.Common.Interfaces.Persistence.Content
         Task<Comment> ReadById(Guid id);
         Task<IEnumerable<Comment>> ReadAll();
         
-        Task Create(Comment entity);
-        Task Update(Comment entity);
+        Task<Comment> Create(Comment entity);
+        Task<Comment> Update(Comment entity);
         Task Delete(Comment entity);
     }
 }
