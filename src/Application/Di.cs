@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Reflection;
+using CzyDobrze.Application.Common.Behaviors;
+using FluentValidation;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CzyDobrze.Application
 {
@@ -6,8 +10,13 @@ namespace CzyDobrze.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            // TODO Add MediatR
-            // TODO Add FluentValidation
+            var assembly = Assembly.GetExecutingAssembly();
+
+            services.AddValidatorsFromAssembly(assembly);
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipeline<,>));
+
+            services.AddMediatR(assembly);
+
             return services;
         }
     }
