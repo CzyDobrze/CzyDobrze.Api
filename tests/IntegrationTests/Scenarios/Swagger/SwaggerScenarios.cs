@@ -16,7 +16,7 @@ namespace CzyDobrze.IntegrationTests.Scenarios.Swagger
         }
 
         [Fact]
-        public async Task Get_SwaggerUIEndpointReturnsSuccess_InDeveloperMode()
+        public async Task Get_SwaggerUIEndpointReturnsSuccess()
         {
             var client = _factory
                 .CreateClient();
@@ -24,21 +24,6 @@ namespace CzyDobrze.IntegrationTests.Scenarios.Swagger
             var response = await client.GetAsync("/swagger");
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
-        }
-        
-        [Fact]
-        public async Task Get_SwaggerUIEndpointReturns404_InRelease()
-        {
-            var client = _factory
-                .WithWebHostBuilder(builder =>
-                {
-                    builder.UseEnvironment("Production");
-                })
-                .CreateClient();
-
-            var response = await client.GetAsync("/swagger");
-
-            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
     }
 }
