@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using CzyDobrze.Application.Common.Exceptions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -21,7 +20,8 @@ namespace CzyDobrze.Api.Filters
             
             _exceptionHandlers = new Dictionary<Type, Action<ExceptionContext>>()
             {
-                {typeof(ValidationException), HandleValidationException}
+                {typeof(ValidationException), HandleValidationException},
+                {typeof(EntityNotFoundException), HandleEntityNotFoundException}
             };
         }
         
@@ -35,6 +35,7 @@ namespace CzyDobrze.Api.Filters
         private void HandleException(ExceptionContext context)
         {
             var type = context.Exception.GetType();
+            
             if (_exceptionHandlers.ContainsKey(type))
             {
                 _exceptionHandlers[type].Invoke(context);
@@ -47,15 +48,7 @@ namespace CzyDobrze.Api.Filters
         private static void HandleValidationException(ExceptionContext context)
         {
             var exception = context.Exception as ValidationException;
-
-            if (exception.Errors.All(x => x.Value.Contains("Not Found")))
-            {
-                context.Result = new NotFoundObjectResult(string.Empty);
-                context.ExceptionHandled = true;
-
-                return;
-            }
-
+            
             var details = new ValidationProblemDetails(exception?.Errors)
             {
                 Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1"
@@ -63,6 +56,12 @@ namespace CzyDobrze.Api.Filters
 
             context.Result = new BadRequestObjectResult(details);
 
+            context.ExceptionHandled = true;
+        }
+
+        private static void HandleEntityNotFoundException(ExceptionContext context)
+        {
+            context.Result = new NotFoundResult();
             context.ExceptionHandled = true;
         }
         
@@ -85,5 +84,4 @@ namespace CzyDobrze.Api.Filters
             context.ExceptionHandled = true;
         }
     }
-
 }
