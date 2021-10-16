@@ -10,7 +10,8 @@ using Mono.Reflection;
 
 namespace CzyDobrze.Infrastructure
 {
-    public static class DummyTextbookRepositoryDi
+    // TODO remove it - this is only an example and it's only here because app won't run with no implementation at all
+    internal static class DummyTextbookRepositoryDi
     {
         internal static IServiceCollection AddDummyTextbookRepository(this IServiceCollection services)
             => services.AddSingleton<ITextbookRepository, DummyTextbookRepository>();
