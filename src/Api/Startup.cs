@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CzyDobrze.Api.Filters;
+using CzyDobrze.Application;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -16,17 +18,24 @@ namespace CzyDobrze.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
         public IConfiguration Configuration { get; }
-
+        public IWebHostEnvironment Environment { get; }
+        
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddControllers();
+            services.AddApplication();
+            
+            services.AddControllers(options =>
+            {
+                options.Filters.Add(new ApiExceptionFilter(Environment));
+            });
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CzyDobrze.Api", Version = "v1" });
