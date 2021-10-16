@@ -1,4 +1,6 @@
 using CzyDobrze.Api.Utils;
+using CzyDobrze.Application;
+using CzyDobrze.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +20,9 @@ namespace CzyDobrze.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApplication();
+            services.AddInfrastructure();
+
             services.AddControllers();
             
             services.AddSwagger();
