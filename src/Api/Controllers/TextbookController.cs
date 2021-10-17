@@ -6,6 +6,7 @@ using CzyDobrze.Application.Textbooks.Command.CreateTextbook;
 using CzyDobrze.Application.Textbooks.Command.UpdateTextbook;
 using CzyDobrze.Application.Textbooks.Queries.GetTextbookById;
 using CzyDobrze.Application.Textbooks.Queries.GetAllTextbooks;
+using CzyDobrze.Application.Textbooks.Command.DeleteTextbook;
 using CzyDobrze.Domain.Content.Textbook;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -31,6 +32,7 @@ namespace CzyDobrze.Api.Controllers
         /// <summary>
         /// Gets a textbook
         /// </summary>
+        /// <param name="id">ID of the textbook</param>
         /// <returns>A textbook with a given Guid</returns>
         /// <response code="200">When textbook is returned successfully</response>
         /// <response code="400">When validation error occurs</response>
@@ -45,12 +47,11 @@ namespace CzyDobrze.Api.Controllers
             return await _mediator.Send(new GetTextbookById(id));
         }
         
-        
         /// <summary>
         /// Gets all textbooks
         /// </summary>
         /// <returns>An array of all textbooks</returns>
-        /// <response code="200">When textbooks are returned successfully</response>
+        /// <response code="200">When textbooks were returned successfully</response>
         /// <response code="400">When validation error occurs</response>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Textbook>))]
@@ -60,12 +61,11 @@ namespace CzyDobrze.Api.Controllers
             return await _mediator.Send(new GetAllTextbooks());
         }
         
-        
         /// <summary>
         /// Creates a new Textbook
         /// </summary>
         /// <returns>A textbook with a given Guid</returns>
-        /// <response code="201">When textbook is created successfully</response>
+        /// <response code="201">When textbook was created successfully</response>
         /// <response code="400">When validation error occurs</response>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Textbook))]
@@ -82,7 +82,7 @@ namespace CzyDobrze.Api.Controllers
         /// Updates an already existing textbook
         /// </summary>
         /// <returns>Updated textbook</returns>
-        /// <response code="200">When textbook is updated successfully</response>
+        /// <response code="200">When textbook was updated successfully</response>
         /// <response code="400">When validation error occurs</response>
         /// <response code="404">When no textbook with given Guid was found</response>
         [HttpPut]
@@ -96,5 +96,23 @@ namespace CzyDobrze.Api.Controllers
 
             return Ok();
         }
+
+        /// <summary>
+        /// Removes a textbook
+        /// </summary>
+        /// <response code="200">When textbook was updated successfully</response>
+        /// <response code="400">When validation error occurs</response>
+        /// <response code="404">When no textbook with given Guid was found</response>
+        [HttpDelete("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DeleteTextbook(Guid id)
+        {
+            await _mediator.Send(new DeleteTextbook(id));
+            return Ok();
+        }
+        
     }
 }
