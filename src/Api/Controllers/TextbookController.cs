@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CzyDobrze.Application.Textbooks.Command.CreateTextbook;
 using CzyDobrze.Application.Textbooks.Command.UpdateTextbook;
 using CzyDobrze.Application.Textbooks.Queries.GetTextbookById;
+using CzyDobrze.Application.Textbooks.Queries.GetAllTextbooks;
 using CzyDobrze.Domain.Content.Textbook;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -40,6 +43,21 @@ namespace CzyDobrze.Api.Controllers
         public async Task<Textbook> GetTextbookById(Guid id)
         {
             return await _mediator.Send(new GetTextbookById(id));
+        }
+        
+        
+        /// <summary>
+        /// Gets all textbooks
+        /// </summary>
+        /// <returns>An array of all textbooks</returns>
+        /// <response code="200">When textbooks are returned successfully</response>
+        /// <response code="400">When validation error occurs</response>
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Textbook>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IEnumerable<Textbook>> GetAllTextbooks()
+        {
+            return await _mediator.Send(new GetAllTextbooks());
         }
         
         
