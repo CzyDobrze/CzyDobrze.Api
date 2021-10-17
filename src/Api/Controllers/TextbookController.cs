@@ -100,6 +100,7 @@ namespace CzyDobrze.Api.Controllers
         /// <summary>
         /// Removes a textbook
         /// </summary>
+        /// <param name="id">Guid of the textbook</param>
         /// <response code="200">When textbook was updated successfully</response>
         /// <response code="400">When validation error occurs</response>
         /// <response code="404">When no textbook with given Guid was found</response>
