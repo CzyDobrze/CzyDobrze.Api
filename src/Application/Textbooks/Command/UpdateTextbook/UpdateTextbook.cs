@@ -8,6 +8,7 @@ namespace CzyDobrze.Application.Textbooks.Command.UpdateTextbook
     {
         public UpdateTextbook(Guid id, string title, string subject, string publisher, int classYear)
         {
+            Id = id;
             Title = title;
             Subject = subject;
             Publisher = publisher;
