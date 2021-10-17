@@ -1,13 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CzyDobrze.Api.Controllers
 {
+    [ApiController]
+    [Route("/api/section")]
     public class SectionController : Controller
     {
-        // GET
-        public IActionResult Index()
+        private readonly IMediator _mediator;
+
+        public SectionController(IMediator mediator)
         {
-            return View();
+            _mediator = mediator;
         }
     }
 }
