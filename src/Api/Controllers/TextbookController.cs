@@ -51,6 +51,8 @@ namespace CzyDobrze.Api.Controllers
         /// Gets all textbooks
         /// </summary>
         /// <returns>An array of all textbooks</returns>
+        /// <param name="page">Which page to be shown</param>
+        /// <param name="amount"> An amount of textbooks to be shown</param>
         /// <response code="200">When textbooks are returned successfully</response>
         /// <response code="400">When validation error occurs</response>
         /// <response code="500">When unhandled exception is thrown</response>
@@ -58,9 +60,9 @@ namespace CzyDobrze.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Textbook>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IEnumerable<Textbook>> GetAllTextbooks()
+        public async Task<IEnumerable<Textbook>> GetAllTextbooks(int page, int amount)
         {
-            return await _mediator.Send(new GetAllTextbooks());
+            return await _mediator.Send(new GetAllTextbooks(page, amount));
         }
         
         /// <summary>
