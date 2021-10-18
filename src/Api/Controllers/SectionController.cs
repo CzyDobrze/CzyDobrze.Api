@@ -3,7 +3,9 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using CzyDobrze.Api.Models;
 using CzyDobrze.Application.Sections.Commands.CreateSection;
+using CzyDobrze.Application.Sections.Commands.UpdateSection;
 using CzyDobrze.Application.Sections.Queries.GetSectionById;
 using CzyDobrze.Domain.Content.Section;
 
@@ -39,6 +41,15 @@ namespace CzyDobrze.Api.Controllers
             var section = await _mediator.Send(model);
 
             return Created($"/api/section/{section.Id}", section);
+        }
+        
+        [HttpPost("{id:guid")]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Section))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<Section> UpdateSection(Guid id, UpdateSectionModel model)
+        {
+            return await _mediator.Send(new UpdateSection(id, model.Title, model.Description));
         }
     }
 }

@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <Folder Include="Sections\Queries\GetAllSections" />
-    <Folder Include="Sections\Queries\GetAllSectionsOfTextbook" />
   </ItemGroup>
 
 </Project>
