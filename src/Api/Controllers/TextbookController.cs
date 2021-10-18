@@ -60,7 +60,7 @@ namespace CzyDobrze.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Textbook>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IEnumerable<Textbook>> GetAllTextbooks(int page, int amount)
+        public async Task<IEnumerable<Textbook>> GetAllTextbooks(int page = 0, int amount = 10)
         {
             return await _mediator.Send(new GetAllTextbooks(page, amount));
         }
