@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CzyDobrze.Application.Common.Interfaces.Persistence.Content;
@@ -18,7 +20,12 @@ namespace CzyDobrze.Application.Textbooks.Queries.GetAllTextbooks
 
         public async Task<IEnumerable<Textbook>> Handle(GetAllTextbooks request, CancellationToken cancellationToken)
         {
-            return await _repository.ReadAll();
+            var allTextbooks = await _repository.ReadAll();
+
+            return allTextbooks
+                .Skip(request.Page * request.Amount)
+                .Take(request.Amount)
+                .AsEnumerable();
         }
     }
 }
