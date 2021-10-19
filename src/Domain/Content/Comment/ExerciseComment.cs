@@ -1,29 +1,30 @@
 ﻿using System.Collections.Generic;
 using CzyDobrze.Core;
 using CzyDobrze.Domain.Content.Comment.Exceptions;
-using CzyDobrze.Domain.Users.User;
+using CzyDobrze.Domain.Content.Vote;
+using CzyDobrze.Domain.Users.Contributor;
 
 namespace CzyDobrze.Domain.Content.Comment
 {
-    public class Comment : Entity
+    public class ExerciseComment : Entity
     {
-        private readonly IList<Vote.Vote> _votes = new List<Vote.Vote>();
+        private readonly IList<ExerciseCommentVote> _votes = new List<ExerciseCommentVote>();
         
-        private Comment()
+        private ExerciseComment()
         {
             // For EF
         }
 
-        public Comment(User author, string content)
+        public ExerciseComment(Contributor author, string content)
         {
             Author = author;
             SetContent(content);
         }
 
-        public User Author { get; }
+        public Contributor Author { get; }
         public string Content { get; private set; }
 
-        public IEnumerable<Vote.Vote> Votes => _votes;
+        public IEnumerable<ExerciseCommentVote> Votes => _votes;
 
         public void SetContent(string content)
         {
@@ -31,13 +32,13 @@ namespace CzyDobrze.Domain.Content.Comment
             Content = content;
         }
         
-        public void AddVote(Vote.Vote vote)
+        public void AddVote(ExerciseCommentVote vote)
         {
             if (vote is null) throw new CommentVoteMustNotBeNullException();
             _votes.Add(vote);
         }
 
-        public void DeleteVote(Vote.Vote vote)
+        public void DeleteVote(ExerciseCommentVote vote)
         {
             if (vote is null) throw new CommentVoteMustNotBeNullException();
             _votes.Remove(vote);
