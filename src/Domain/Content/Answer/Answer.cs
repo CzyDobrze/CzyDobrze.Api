@@ -19,10 +19,12 @@ namespace CzyDobrze.Domain.Content.Answer
 
         public Answer(Contributor author, string content)
         {
-            Author = author;
             Accepted = false;
             
             SetContent(content);
+
+            if (author is null) throw new AnswerAuthorMustNotBeNullException();
+            Author = author;
         }
         
         public Contributor Author { get; }

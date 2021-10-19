@@ -17,8 +17,10 @@ namespace CzyDobrze.Domain.Content.Comment
 
         public AnswerComment(Contributor author, string content)
         {
-            Author = author;
             SetContent(content);
+
+            if (author is null) throw new CommentAuthorMustNotBeNullException();
+            Author = author;
         }
 
         public Contributor Author { get; }

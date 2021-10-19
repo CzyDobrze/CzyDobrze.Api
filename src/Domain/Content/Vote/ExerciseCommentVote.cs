@@ -1,4 +1,5 @@
 ﻿using CzyDobrze.Core;
+using CzyDobrze.Domain.Content.Vote.Exceptions;
 using CzyDobrze.Domain.Users.Contributor;
 
 namespace CzyDobrze.Domain.Content.Vote
@@ -12,8 +13,10 @@ namespace CzyDobrze.Domain.Content.Vote
         
         private ExerciseCommentVote(Contributor voter, int value)
         {
-            Voter = voter;
             Value = value;
+            
+            if (voter is null) throw new VotingContributorMustNotBeNullException();
+            Voter = voter;
         }
 
         public static ExerciseCommentVote Upvote(Contributor voter)
