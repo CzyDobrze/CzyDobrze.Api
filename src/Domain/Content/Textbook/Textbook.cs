@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Security.Cryptography;
 using CzyDobrze.Core;
 using CzyDobrze.Domain.Content.Textbook.Exceptions;
 
@@ -54,11 +55,13 @@ namespace CzyDobrze.Domain.Content.Textbook
 
         public void AddSection(Section.Section section)
         {
+            if (section is null) throw new TextbookSectionMustNotBeNullException();
             _sections.Add(section);
         }
 
         public void DeleteSection(Section.Section section)
         {
+            if (section is null) throw new TextbookSectionMustNotBeNullException();
             _sections.Remove(section);
         }
     }

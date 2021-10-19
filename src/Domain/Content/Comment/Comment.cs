@@ -33,11 +33,13 @@ namespace CzyDobrze.Domain.Content.Comment
         
         public void AddVote(Vote.Vote vote)
         {
+            if (vote is null) throw new CommentVoteMustNotBeNullException();
             _votes.Add(vote);
         }
 
         public void DeleteVote(Vote.Vote vote)
         {
+            if (vote is null) throw new CommentVoteMustNotBeNullException();
             _votes.Remove(vote);
         }
     }

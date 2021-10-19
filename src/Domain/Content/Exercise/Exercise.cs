@@ -39,21 +39,25 @@ namespace CzyDobrze.Domain.Content.Exercise
 
         public void AddAnswer(Answer.Answer answer)
         {
+            if (answer is null) throw new ExerciseAnswerMustNotBeNullException();
             _answers.Add(answer);
         }
 
         public void DeleteAnswer(Answer.Answer answer)
         {
+            if (answer is null) throw new ExerciseAnswerMustNotBeNullException();
             _answers.Remove(answer);
         }
 
         public void AddComment(Comment.Comment comment)
         {
+            if (comment is null) throw new ExerciseCommentMustNotBeNullException();
             _comments.Add(comment);
         }
 
         public void DeleteComment(Comment.Comment comment)
         {
+            if (comment is null) throw new ExerciseCommentMustNotBeNullException();
             _comments.Remove(comment);
         }
     }

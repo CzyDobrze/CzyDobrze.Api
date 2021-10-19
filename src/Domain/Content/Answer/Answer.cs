@@ -47,11 +47,13 @@ namespace CzyDobrze.Domain.Content.Answer
 
         public void AddVote(Vote.Vote vote)
         {
+            if (vote is null) throw new AnswerVoteMustNotBeNullException();
             _votes.Add(vote);
         }
 
         public void DeleteVote(Vote.Vote vote)
         {
+            if (vote is null) throw new AnswerVoteMustNotBeNullException();
             _votes.Remove(vote);
         }
     }
