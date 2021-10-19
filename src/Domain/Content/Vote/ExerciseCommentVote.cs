@@ -1,4 +1,5 @@
 ﻿using CzyDobrze.Core;
+using CzyDobrze.Domain.Content.Comment;
 using CzyDobrze.Domain.Content.Vote.Exceptions;
 using CzyDobrze.Domain.Users.Contributor;
 
@@ -27,5 +28,7 @@ namespace CzyDobrze.Domain.Content.Vote
         
         public Contributor Voter { get; }
         public int Value { get; }
+        
+        public ExerciseComment Comment { get; }
     }
 }

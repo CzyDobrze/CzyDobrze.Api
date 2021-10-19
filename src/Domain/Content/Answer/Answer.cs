@@ -74,5 +74,7 @@ namespace CzyDobrze.Domain.Content.Answer
             if (vote is null) throw new AnswerVoteMustNotBeNullException();
             _votes.Remove(vote);
         }
+        
+        public Exercise.Exercise Exercise { get; }
     }
 }

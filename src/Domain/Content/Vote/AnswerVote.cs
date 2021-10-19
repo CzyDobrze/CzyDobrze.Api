@@ -27,5 +27,7 @@ namespace CzyDobrze.Domain.Content.Vote
         
         public Contributor Voter { get; }
         public int Value { get; }
+        
+        public Answer.Answer Answer { get; }
     }
 }

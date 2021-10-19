@@ -61,5 +61,7 @@ namespace CzyDobrze.Domain.Content.Exercise
             if (comment is null) throw new ExerciseCommentMustNotBeNullException();
             _comments.Remove(comment);
         }
+        
+        public Section.Section Section { get; }
     }
 }

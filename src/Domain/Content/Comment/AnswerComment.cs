@@ -45,5 +45,7 @@ namespace CzyDobrze.Domain.Content.Comment
             if (vote is null) throw new CommentVoteMustNotBeNullException();
             _votes.Remove(vote);
         }
+        
+        public Answer.Answer Answer { get; }
     }
 }

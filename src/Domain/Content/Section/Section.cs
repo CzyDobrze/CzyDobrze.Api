@@ -46,5 +46,7 @@ namespace CzyDobrze.Domain.Content.Section
             if (exercise is null) throw new SectionExerciseMustNotBeNullException();
             _exercises.Remove(exercise);
         }
+        
+        public Textbook.Textbook Textbook { get; }
     }
 }
