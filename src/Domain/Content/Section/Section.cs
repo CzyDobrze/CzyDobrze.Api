@@ -37,12 +37,16 @@ namespace CzyDobrze.Domain.Content.Section
 
         public void AddExercise(Exercise.Exercise exercise)
         {
+            if (exercise is null) throw new SectionExerciseMustNotBeNullException();
             _exercises.Add(exercise);
         }
 
         public void DeleteExercise(Exercise.Exercise exercise)
         {
+            if (exercise is null) throw new SectionExerciseMustNotBeNullException();
             _exercises.Remove(exercise);
         }
+        
+        public Textbook.Textbook Textbook { get; }
     }
 }

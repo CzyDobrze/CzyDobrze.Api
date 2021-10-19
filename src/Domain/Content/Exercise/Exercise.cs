@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CzyDobrze.Core;
+using CzyDobrze.Domain.Content.Comment;
 using CzyDobrze.Domain.Content.Exercise.Exceptions;
 
 namespace CzyDobrze.Domain.Content.Exercise
@@ -7,7 +8,7 @@ namespace CzyDobrze.Domain.Content.Exercise
     public class Exercise : Entity
     {
         private readonly IList<Answer.Answer> _answers = new List<Answer.Answer>();
-        private readonly IList<Comment.Comment> _comments = new List<Comment.Comment>();
+        private readonly IList<ExerciseComment> _comments = new List<ExerciseComment>();
         
         private Exercise()
         {
@@ -24,7 +25,7 @@ namespace CzyDobrze.Domain.Content.Exercise
         public string Description { get; private set; }
 
         public IEnumerable<Answer.Answer> Answers => _answers;
-        public IEnumerable<Comment.Comment> Comments => _comments;
+        public IEnumerable<ExerciseComment> Comments => _comments;
 
         public void SetInBookId(string inBookId)
         {
@@ -39,22 +40,28 @@ namespace CzyDobrze.Domain.Content.Exercise
 
         public void AddAnswer(Answer.Answer answer)
         {
+            if (answer is null) throw new ExerciseAnswerMustNotBeNullException();
             _answers.Add(answer);
         }
 
         public void DeleteAnswer(Answer.Answer answer)
         {
+            if (answer is null) throw new ExerciseAnswerMustNotBeNullException();
             _answers.Remove(answer);
         }
 
-        public void AddComment(Comment.Comment comment)
+        public void AddComment(ExerciseComment comment)
         {
+            if (comment is null) throw new ExerciseCommentMustNotBeNullException();
             _comments.Add(comment);
         }
 
-        public void DeleteComment(Comment.Comment comment)
+        public void DeleteComment(ExerciseComment comment)
         {
+            if (comment is null) throw new ExerciseCommentMustNotBeNullException();
             _comments.Remove(comment);
         }
+        
+        public Section.Section Section { get; }
     }
 }
