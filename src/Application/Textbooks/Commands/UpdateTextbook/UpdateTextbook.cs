@@ -2,7 +2,7 @@
 using CzyDobrze.Domain.Content.Textbook;
 using MediatR;
 
-namespace CzyDobrze.Application.Textbooks.Command.UpdateTextbook
+namespace CzyDobrze.Application.Textbooks.Commands.UpdateTextbook
 {
     public class UpdateTextbook : IRequest<Textbook>
     {

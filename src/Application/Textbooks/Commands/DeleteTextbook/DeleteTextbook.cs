@@ -1,7 +1,7 @@
 ﻿using System;
 using MediatR;
 
-namespace CzyDobrze.Application.Textbooks.Command.DeleteTextbook
+namespace CzyDobrze.Application.Textbooks.Commands.DeleteTextbook
 {
     public class DeleteTextbook : IRequest
     {

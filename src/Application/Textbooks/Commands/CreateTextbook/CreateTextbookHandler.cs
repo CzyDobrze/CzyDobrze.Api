@@ -4,7 +4,7 @@ using CzyDobrze.Application.Common.Interfaces.Persistence.Content;
 using CzyDobrze.Domain.Content.Textbook;
 using MediatR;
 
-namespace CzyDobrze.Application.Textbooks.Command.CreateTextbook
+namespace CzyDobrze.Application.Textbooks.Commands.CreateTextbook
 {
     public class CreateTextbookHandler : IRequestHandler<CreateTextbook, Textbook>
     {

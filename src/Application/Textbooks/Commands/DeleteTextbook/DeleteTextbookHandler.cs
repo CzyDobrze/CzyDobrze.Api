@@ -4,7 +4,7 @@ using CzyDobrze.Application.Common.Exceptions;
 using CzyDobrze.Application.Common.Interfaces.Persistence.Content;
 using MediatR;
 
-namespace CzyDobrze.Application.Textbooks.Command.DeleteTextbook
+namespace CzyDobrze.Application.Textbooks.Commands.DeleteTextbook
 {
     public class DeleteTextbookHandler : IRequestHandler<DeleteTextbook>
     {

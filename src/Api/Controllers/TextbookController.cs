@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CzyDobrze.Api.Models;
-using CzyDobrze.Application.Textbooks.Command.CreateTextbook;
 using CzyDobrze.Application.Textbooks.Queries.GetTextbookById;
 using CzyDobrze.Application.Textbooks.Queries.GetAllTextbooks;
-using CzyDobrze.Application.Textbooks.Command.DeleteTextbook;
-using CzyDobrze.Application.Textbooks.Command.UpdateTextbook;
 using CzyDobrze.Application.Sections.Queries.GetAllSectionsOfTextbook;
+using CzyDobrze.Application.Textbooks.Commands.CreateTextbook;
+using CzyDobrze.Application.Textbooks.Commands.DeleteTextbook;
+using CzyDobrze.Application.Textbooks.Commands.UpdateTextbook;
 using CzyDobrze.Domain.Content.Textbook;
 using CzyDobrze.Domain.Content.Section;
 using MediatR;
@@ -16,9 +16,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CzyDobrze.Api.Controllers
 {
-    /// <summary>
-    /// Textbook controller
-    /// </summary>
     [ApiController]
     [Route("/api/textbook")]
     public class TextbookController : ControllerBase

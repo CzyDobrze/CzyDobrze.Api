@@ -5,7 +5,7 @@ using CzyDobrze.Application.Common.Interfaces.Persistence.Content;
 using CzyDobrze.Domain.Content.Textbook;
 using MediatR;
 
-namespace CzyDobrze.Application.Textbooks.Command.UpdateTextbook
+namespace CzyDobrze.Application.Textbooks.Commands.UpdateTextbook
 {
     public class UpdateTextbookHandler : IRequestHandler<UpdateTextbook, Textbook>
     {

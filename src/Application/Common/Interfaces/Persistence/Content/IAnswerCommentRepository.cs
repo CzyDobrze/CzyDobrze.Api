@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CzyDobrze.Domain.Content.Answer;
 using CzyDobrze.Domain.Content.Comment;
 
 namespace CzyDobrze.Application.Common.Interfaces.Persistence.Content
