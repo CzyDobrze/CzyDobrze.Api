@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Exercises\Queries" />
+    <Folder Include="Exercises\Queries\GetAllExerciseOfSection" />
   </ItemGroup>
 
 </Project>

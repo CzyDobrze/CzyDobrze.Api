@@ -47,6 +47,7 @@ namespace CzyDobrze.Api.Controllers
         [HttpPut("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Section))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<Section> UpdateSection(Guid id, UpdateSectionModel model)
         {

@@ -7,6 +7,7 @@ using CzyDobrze.Api.Models;
 using CzyDobrze.Application.Exercises.Commands.CreateExercise;
 using CzyDobrze.Application.Exercises.Commands.DeleteExercise;
 using CzyDobrze.Application.Exercises.Commands.UpdateExercise;
+using CzyDobrze.Application.Exercises.Queries.GetExerciseById;
 using CzyDobrze.Domain.Content.Exercise;
 
 namespace CzyDobrze.Api.Controllers
@@ -20,6 +21,16 @@ namespace CzyDobrze.Api.Controllers
         public ExerciseController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Exercise))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<Exercise> GetExerciseById(Guid id)
+        {
+            return await _mediator.Send(new GetExerciseById(id));
         }
         
         [HttpPost]
@@ -36,6 +47,7 @@ namespace CzyDobrze.Api.Controllers
         [HttpPut("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Exercise))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<Exercise> UpdateExercise(Guid id, UpdateExerciseModel model)
         {
