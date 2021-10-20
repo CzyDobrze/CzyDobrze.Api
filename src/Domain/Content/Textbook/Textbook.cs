@@ -54,11 +54,13 @@ namespace CzyDobrze.Domain.Content.Textbook
 
         public void AddSection(Section.Section section)
         {
+            if (section is null) throw new TextbookSectionMustNotBeNullException();
             _sections.Add(section);
         }
 
         public void DeleteSection(Section.Section section)
         {
+            if (section is null) throw new TextbookSectionMustNotBeNullException();
             _sections.Remove(section);
         }
     }

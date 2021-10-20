@@ -1,33 +1,39 @@
 ﻿using System.Collections.Generic;
 using CzyDobrze.Core;
 using CzyDobrze.Domain.Content.Answer.Exceptions;
-using CzyDobrze.Domain.Users.User;
+using CzyDobrze.Domain.Content.Comment;
+using CzyDobrze.Domain.Content.Vote;
+using CzyDobrze.Domain.Users.Contributor;
 
 namespace CzyDobrze.Domain.Content.Answer
 {
     public class Answer : Entity
     {
-        private readonly IList<Vote.Vote> _votes = new List<Vote.Vote>();
+        private readonly IList<AnswerComment> _comments = new List<AnswerComment>();
+        private readonly IList<AnswerVote> _votes = new List<AnswerVote>();
         
         private Answer()
         {
             // For EF
         }
 
-        public Answer(User author, string content)
+        public Answer(Contributor author, string content)
         {
-            Author = author;
             Accepted = false;
             
             SetContent(content);
+
+            if (author is null) throw new AnswerAuthorMustNotBeNullException();
+            Author = author;
         }
         
-        public User Author { get; }
+        public Contributor Author { get; }
         public string Content { get; private set; }
         
         public bool Accepted { get; private set; }
-        
-        public IEnumerable<Vote.Vote> Votes => _votes;
+
+        public IEnumerable<AnswerComment> AnswerComments => _comments;
+        public IEnumerable<AnswerVote> Votes => _votes;
 
         public void SetContent(string content)
         {
@@ -44,15 +50,31 @@ namespace CzyDobrze.Domain.Content.Answer
         {
             Accepted = false;
         }
-
-        public void AddVote(Vote.Vote vote)
+        
+        public void AddComment(AnswerComment comment)
         {
+            if (comment is null) throw new AnswerCommentMustNotBeNullException();
+            _comments.Add(comment);
+        }
+        
+        public void DeleteComment(AnswerComment comment)
+        {
+            if (comment is null) throw new AnswerCommentMustNotBeNullException();
+            _comments.Remove(comment);
+        }
+
+        public void AddVote(AnswerVote vote)
+        {
+            if (vote is null) throw new AnswerVoteMustNotBeNullException();
             _votes.Add(vote);
         }
 
-        public void DeleteVote(Vote.Vote vote)
+        public void DeleteVote(AnswerVote vote)
         {
+            if (vote is null) throw new AnswerVoteMustNotBeNullException();
             _votes.Remove(vote);
         }
+        
+        public Exercise.Exercise Exercise { get; }
     }
 }
