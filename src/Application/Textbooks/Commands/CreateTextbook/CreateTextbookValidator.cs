@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace CzyDobrze.Application.Textbooks.Command.CreateTextbook
+namespace CzyDobrze.Application.Textbooks.Commands.CreateTextbook
 {
     public class CreateTextbookValidator : AbstractValidator<CreateTextbook>
     {

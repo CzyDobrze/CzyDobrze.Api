@@ -1,7 +1,7 @@
 ﻿using CzyDobrze.Domain.Content.Textbook;
 using MediatR;
 
-namespace CzyDobrze.Application.Textbooks.Command.CreateTextbook
+namespace CzyDobrze.Application.Textbooks.Commands.CreateTextbook
 {
     public class CreateTextbook : IRequest<Textbook>
     {

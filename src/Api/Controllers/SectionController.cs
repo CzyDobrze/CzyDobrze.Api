@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
@@ -8,7 +7,6 @@ using CzyDobrze.Api.Models;
 using CzyDobrze.Application.Sections.Commands.CreateSection;
 using CzyDobrze.Application.Sections.Commands.DeleteSection;
 using CzyDobrze.Application.Sections.Commands.UpdateSection;
-using CzyDobrze.Application.Sections.Queries.GetAllSectionsOfTextbook;
 using CzyDobrze.Application.Sections.Queries.GetSectionById;
 using CzyDobrze.Domain.Content.Section;
 
@@ -46,7 +44,7 @@ namespace CzyDobrze.Api.Controllers
             return Created($"/api/section/{section.Id}", section);
         }
         
-        [HttpPost("{id:guid}")]
+        [HttpPut("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Section))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

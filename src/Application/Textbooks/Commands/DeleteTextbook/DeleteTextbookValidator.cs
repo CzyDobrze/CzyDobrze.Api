@@ -1,7 +1,6 @@
-﻿using CzyDobrze.Application.Common.Interfaces.Persistence.Content;
-using FluentValidation;
+﻿using FluentValidation;
 
-namespace CzyDobrze.Application.Textbooks.Command.DeleteTextbook
+namespace CzyDobrze.Application.Textbooks.Commands.DeleteTextbook
 {
     public class DeleteTextbookValidator : AbstractValidator<DeleteTextbook>
     {
