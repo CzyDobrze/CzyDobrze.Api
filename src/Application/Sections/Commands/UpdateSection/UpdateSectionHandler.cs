@@ -25,7 +25,7 @@ namespace CzyDobrze.Application.Sections.Commands.UpdateSection
             section.SetTitle(request.Title);
             section.SetDescription(request.Description);
 
-            return section;
+            return await _repository.Update(section); ;
         }
     }
 }

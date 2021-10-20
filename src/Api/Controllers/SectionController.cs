@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using CzyDobrze.Api.Models;
 using CzyDobrze.Application.Sections.Commands.CreateSection;
+using CzyDobrze.Application.Sections.Commands.DeleteSection;
 using CzyDobrze.Application.Sections.Commands.UpdateSection;
 using CzyDobrze.Application.Sections.Queries.GetAllSectionsOfTextbook;
 using CzyDobrze.Application.Sections.Queries.GetSectionById;
@@ -52,6 +53,17 @@ namespace CzyDobrze.Api.Controllers
         public async Task<Section> UpdateSection(Guid id, UpdateSectionModel model)
         {
             return await _mediator.Send(new UpdateSection(id, model.Title, model.Description));
+        }
+        
+        [HttpDelete("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DeleteSection(Guid id)
+        {
+            await _mediator.Send(new DeleteSection(id));
+            return NoContent();
         }
     }
 }

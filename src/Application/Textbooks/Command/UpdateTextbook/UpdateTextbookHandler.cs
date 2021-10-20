@@ -25,6 +25,8 @@ namespace CzyDobrze.Application.Textbooks.Command.UpdateTextbook
             textbook.SetPublisher(request.Publisher);
             textbook.SetSubject(request.Subject);
             textbook.SetClassYear(request.ClassYear);
+
+            await _repository.Update(textbook);
             
             return await _repository.Update(textbook);
         }

@@ -8,21 +8,16 @@ namespace CzyDobrze.Application.Sections.Commands.CreateSection
 {
     public class CreateSectionHandler : IRequestHandler<CreateSection, Section>
     {
-        private readonly ITextbookRepository _repository;
+        private readonly ISectionRepository _repository;
 
-        public CreateSectionHandler(ITextbookRepository repository)
+        public CreateSectionHandler(ISectionRepository repository)
         {
             _repository = repository;
         }
         
         public async Task<Section> Handle(CreateSection request, CancellationToken cancellationToken)
         {
-            var textbook = await _repository.ReadById(request.TextbookId);
-
-            var section = new Section(request.Title, request.Description);
-            textbook.AddSection(section);
-
-            return section;
+            return await _repository.Create(request.TextbookId, new Section(request.Title, request.Description));
         }
     }
 }
