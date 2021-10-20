@@ -9,6 +9,9 @@ using CzyDobrze.Application.Sections.Commands.DeleteSection;
 using CzyDobrze.Application.Sections.Commands.UpdateSection;
 using CzyDobrze.Application.Sections.Queries.GetSectionById;
 using CzyDobrze.Domain.Content.Section;
+using System.Collections.Generic;
+using CzyDobrze.Application.Exercises.Queries.GetAllExercisesFromSection;
+using CzyDobrze.Domain.Content.Exercise;
 
 namespace CzyDobrze.Api.Controllers
 {
@@ -63,6 +66,16 @@ namespace CzyDobrze.Api.Controllers
         {
             await _mediator.Send(new DeleteSection(id));
             return NoContent();
+        }
+
+        [HttpGet("{id:guid}/exercises")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Exercise>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IEnumerable<Exercise>> GetAllExercisesFromSection(Guid id, int page = 0, int amount = 10)
+        {
+            return await _mediator.Send(new GetAllExercisesFromSection(id, page, amount));
         }
     }
 }
