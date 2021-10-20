@@ -78,7 +78,7 @@ namespace CzyDobrze.Api.Controllers
             return NoContent();
         }
         
-        [HttpGet("/{id:guid}/sections")]
+        [HttpGet("{id:guid}/sections")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Section>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
