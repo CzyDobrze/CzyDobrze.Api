@@ -3,10 +3,15 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+<<<<<<< HEAD
 using CzyDobrze.Api.Models;
 using CzyDobrze.Application.Exercises.Commands.CreateExercise;
 using CzyDobrze.Application.Exercises.Commands.UpdateExercise;
 using CzyDobrze.Domain.Content.Exercise;
+=======
+using CzyDobrze.Application.Exercises.Commands.CreateExercise;
+using CzyDobrze.Domain.Content.Section;
+>>>>>>> 9e974be46b54cba19c3dafc53c472c94c7a4ed63
 
 namespace CzyDobrze.Api.Controllers
 {
@@ -22,7 +27,11 @@ namespace CzyDobrze.Api.Controllers
         }
         
         [HttpPost]
+<<<<<<< HEAD
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Exercise))]
+=======
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Section))]
+>>>>>>> 9e974be46b54cba19c3dafc53c472c94c7a4ed63
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateExercise(CreateExercise model)
@@ -31,6 +40,7 @@ namespace CzyDobrze.Api.Controllers
             
             return Created($"/api/exercise/{exercise.Id}", exercise);
         }
+<<<<<<< HEAD
         
         [HttpPut("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Exercise))]
@@ -40,5 +50,7 @@ namespace CzyDobrze.Api.Controllers
         {
             return await _mediator.Send(new UpdateExercise(id, model.InBookId, model.Description));
         }
+=======
+>>>>>>> 9e974be46b54cba19c3dafc53c472c94c7a4ed63
     }
 }
