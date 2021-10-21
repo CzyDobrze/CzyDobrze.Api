@@ -8,10 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CzyDobrze.Api.Controllers
 {
     [ApiController]
-<<<<<<< HEAD
     [Route("/api/answer")]
-=======
->>>>>>> b1a0c43a151ef7b5a2741e2129b0e924a0e36581
     public class AnswerController : Controller
     {
         private readonly IMediator _mediator;
