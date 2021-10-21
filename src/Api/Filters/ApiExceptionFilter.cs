@@ -22,7 +22,7 @@ namespace CzyDobrze.Api.Filters
             {
                 {typeof(ValidationException), HandleValidationException},
                 {typeof(EntityNotFoundException), HandleEntityNotFoundException},
-                {typeof(AuthorizationException), HandleException},
+                {typeof(AuthorizationException), HandleAuthorizationException},
             };
         }
         
