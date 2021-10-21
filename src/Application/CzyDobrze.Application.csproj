@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Answers\Queries" />
+    <Folder Include="Answers\Queries\GetAllAnswersToExercise" />
   </ItemGroup>
 
 </Project>

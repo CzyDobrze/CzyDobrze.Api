@@ -4,6 +4,7 @@ using CzyDobrze.Api.Models;
 using CzyDobrze.Application.Answers.Commands.CreateAnswer;
 using CzyDobrze.Application.Answers.Commands.DeleteAnswer;
 using CzyDobrze.Application.Answers.Commands.UpdateAnswer;
+using CzyDobrze.Application.Answers.Queries.GetAnswerById;
 using CzyDobrze.Domain.Content.Answer;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -20,6 +21,16 @@ namespace CzyDobrze.Api.Controllers
         public AnswerController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+        
+        [HttpGet("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Answer))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<Answer> GetAnswerById(Guid id)
+        {
+            return await _mediator.Send(new GetAnswerById(id));
         }
         
         [HttpPost]
