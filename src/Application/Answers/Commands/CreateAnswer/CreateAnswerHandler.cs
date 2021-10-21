@@ -26,7 +26,7 @@ namespace CzyDobrze.Application.Answers.Commands.CreateAnswer
             if (await _userService.IsContributor())
                 contributor = await _userService.GetContributor();
             else
-                throw new UserIsNotAContributorException();
+                throw new AuthorizationException();
 
             return await _repository.Create(request.ExerciseId, new Answer(contributor, request.Content));
         }
