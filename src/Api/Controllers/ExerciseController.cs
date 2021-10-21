@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using CzyDobrze.Api.Models;
+using CzyDobrze.Application.Answers.Queries.GetAllAnswersToExercise;
 using CzyDobrze.Application.Exercises.Commands.CreateExercise;
 using CzyDobrze.Application.Exercises.Commands.DeleteExercise;
 using CzyDobrze.Application.Exercises.Commands.UpdateExercise;
 using CzyDobrze.Application.Exercises.Queries.GetExerciseById;
+using CzyDobrze.Domain.Content.Answer;
 using CzyDobrze.Domain.Content.Exercise;
 
 namespace CzyDobrze.Api.Controllers
@@ -63,6 +66,16 @@ namespace CzyDobrze.Api.Controllers
         {
             await _mediator.Send(new DeleteExercise(id));
             return NoContent();
+        }
+
+        [HttpGet("{id:guid}/answers")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Answer>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IEnumerable<Answer>> GetAllAnswers(Guid id, int page = 0, int amount = 0)
+        {
+            return await _mediator.Send(new GetAllAnswersToExercise(id, page, amount));
         }
     }
 }
