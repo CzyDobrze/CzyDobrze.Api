@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CzyDobrze.Infrastructure.Persistence;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CzyDobrze.Infrastructure
 {
@@ -6,8 +7,8 @@ namespace CzyDobrze.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
-            services.AddDummyTextbookRepository();
-
+            services.AddPersistence();
+            
             return services;
         }
     }
