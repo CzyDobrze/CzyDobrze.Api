@@ -21,7 +21,8 @@ namespace CzyDobrze.Api.Filters
             _exceptionHandlers = new Dictionary<Type, Action<ExceptionContext>>()
             {
                 {typeof(ValidationException), HandleValidationException},
-                {typeof(EntityNotFoundException), HandleEntityNotFoundException}
+                {typeof(EntityNotFoundException), HandleEntityNotFoundException},
+                {typeof(AuthorizationException), HandleException},
             };
         }
         
@@ -62,6 +63,12 @@ namespace CzyDobrze.Api.Filters
         private static void HandleEntityNotFoundException(ExceptionContext context)
         {
             context.Result = new NotFoundResult();
+            context.ExceptionHandled = true;
+        }
+
+        private static void HandleAuthorizationException(ExceptionContext context)
+        {
+            context.Result = new ForbidResult();
             context.ExceptionHandled = true;
         }
         

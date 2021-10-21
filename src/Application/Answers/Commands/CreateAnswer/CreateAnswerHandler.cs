@@ -1,6 +1,6 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using CzyDobrze.Application.Common.Exceptions;
 using CzyDobrze.Application.Common.Interfaces;
 using CzyDobrze.Application.Common.Interfaces.Persistence.Content;
 using CzyDobrze.Domain.Content.Answer;
@@ -26,8 +26,7 @@ namespace CzyDobrze.Application.Answers.Commands.CreateAnswer
             if (await _userService.IsContributor())
                 contributor = await _userService.GetContributor();
             else
-                throw new Exception("Not a contributor");
-            // TODO Change exception type
+                throw new UserIsNotAContributorException();
 
             return await _repository.Create(request.ExerciseId, new Answer(contributor, request.Content));
         }
