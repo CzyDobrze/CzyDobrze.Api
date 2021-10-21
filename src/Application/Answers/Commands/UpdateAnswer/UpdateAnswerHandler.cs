@@ -46,7 +46,7 @@ namespace CzyDobrze.Application.Answers.Commands.UpdateAnswer
             else throw new AuthorizationException();
 
             await _repository.Update(answer);
-            
+
             return answer;
         }
     }
