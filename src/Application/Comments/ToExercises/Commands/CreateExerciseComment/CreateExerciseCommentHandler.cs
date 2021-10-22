@@ -6,7 +6,7 @@ using CzyDobrze.Application.Common.Interfaces.Persistence.Content;
 using CzyDobrze.Domain.Content.Comment;
 using MediatR;
 
-namespace CzyDobrze.Application.Comments.ToExercises.Commands
+namespace CzyDobrze.Application.Comments.ToExercises.Commands.CreateExerciseComment
 {
     public class CreateExerciseHandler : IRequestHandler<CreateExerciseComment, ExerciseComment>
     {

@@ -1,7 +1,6 @@
-﻿using CzyDobrze.Domain.Content.Comment;
-using FluentValidation;
+﻿using FluentValidation;
 
-namespace CzyDobrze.Application.Comments.ToExercises.Commands
+namespace CzyDobrze.Application.Comments.ToExercises.Commands.CreateExerciseComment
 {
     public class CreateExerciseValidator : AbstractValidator<CreateExerciseComment>
     {

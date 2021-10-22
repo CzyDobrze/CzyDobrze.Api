@@ -2,7 +2,7 @@
 using CzyDobrze.Domain.Content.Comment;
 using MediatR;
 
-namespace CzyDobrze.Application.Comments.ToExercises.Commands
+namespace CzyDobrze.Application.Comments.ToExercises.Commands.CreateExerciseComment
 {
     public class CreateExerciseComment : IRequest<ExerciseComment>
     {
