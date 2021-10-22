@@ -1,4 +1,5 @@
-﻿using CzyDobrze.Application.Common.Interfaces.Persistence.Content;
+﻿using CzyDobrze.Application.Common.Interfaces;
+using CzyDobrze.Application.Common.Interfaces.Persistence.Content;
 using CzyDobrze.Infrastructure.Persistence.Implementations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +22,9 @@ namespace CzyDobrze.Infrastructure.Persistence
             services.AddTransient<ISectionRepository, SectionRepository>();
             services.AddTransient<IExerciseRepository, ExerciseRepository>();
             services.AddTransient<IAnswerRepository, AnswerRepository>();
+            
+            // ToDo Remove Dummy Current User Service
+            services.AddTransient<ICurrentUserService, DummyCurrentUserService>();
             
             return services;
         }
