@@ -47,6 +47,7 @@ namespace CzyDobrze.Domain.Content.Section
             _exercises.Remove(exercise);
         }
         
-        public Textbook.Textbook Textbook { get; }
+        // For EF (navigation property)
+        public Textbook.Textbook Textbook { get; private set; }
     }
 }
