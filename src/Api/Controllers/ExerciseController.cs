@@ -8,6 +8,7 @@ using CzyDobrze.Api.Models;
 using CzyDobrze.Application.Answers.Queries.GetAllAnswersToExercise;
 using CzyDobrze.Application.Comments.ToExercises.Commands;
 using CzyDobrze.Application.Comments.ToExercises.Commands.CreateExerciseComment;
+using CzyDobrze.Application.Comments.ToExercises.Commands.DeleteExerciseComment;
 using CzyDobrze.Application.Comments.ToExercises.Commands.UpdateExerciseComment;
 using CzyDobrze.Application.Exercises.Commands.CreateExercise;
 using CzyDobrze.Application.Exercises.Commands.DeleteExercise;
@@ -102,6 +103,18 @@ namespace CzyDobrze.Api.Controllers
         public async Task<ExerciseComment> UpdateExerciseComment(Guid id, string comment)
         {
             return await _mediator.Send(new UpdateExerciseComment(id, comment));
+        }
+
+        [HttpDelete("{id:guid}/comment")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DeleteExerciseComment(Guid id)
+        {
+            await _mediator.Send(new DeleteExerciseComment(id));
+            return NoContent();
         }
     }
 }
