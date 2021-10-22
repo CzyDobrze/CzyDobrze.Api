@@ -31,12 +31,13 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations
         public async Task<Answer> Create(Guid parentId, Answer entity)
         {
             var parent = await _dbContext.Exercises.FindAsync(parentId);
+            
             parent.AddAnswer(entity);
+            
             var update = _dbContext.Exercises.Update(parent);
             await _dbContext.SaveChangesAsync();
 
-            // TODO return created entity
-            throw new NotImplementedException();
+            return update.Entity.Answers.First();
         }
 
         public async Task<Answer> Update(Answer entity)

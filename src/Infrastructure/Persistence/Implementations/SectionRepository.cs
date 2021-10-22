@@ -31,12 +31,13 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations
         public async Task<Section> Create(Guid parentId, Section entity)
         {
             var parent = await _dbContext.Textbooks.FindAsync(parentId);
+            
             parent.AddSection(entity);
+            
             var update = _dbContext.Textbooks.Update(parent);
             await _dbContext.SaveChangesAsync();
-            
-            // TODO return created entity
-            throw new NotImplementedException();
+
+            return update.Entity.Sections.First();
         }
 
         public async Task<Section> Update(Section entity)
