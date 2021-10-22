@@ -459,3 +459,5 @@ out
 
 # SQLite database
 *.db
+*.db-shm
+*.db-wal
