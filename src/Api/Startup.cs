@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using CzyDobrze.Api.Filters;
 using CzyDobrze.Api.Utils;
 using CzyDobrze.Application;
@@ -29,7 +30,8 @@ namespace CzyDobrze.Api
             services.AddControllers(options =>
             {
                 options.Filters.Add(new ApiExceptionFilter(Environment));
-            });
+            }).AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+            // TODO This helps with object cycle, but needs to be changes
             
             services.AddSwagger();
         }
