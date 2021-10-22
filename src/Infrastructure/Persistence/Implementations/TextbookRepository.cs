@@ -19,7 +19,9 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations
 
         public async Task<Textbook> ReadById(Guid id)
         {
-            return await _dbContext.Textbooks.FindAsync(id);
+            return await _dbContext.Textbooks
+                .Include(x => x.Sections)
+                .SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<Textbook>> ReadAll()

@@ -19,7 +19,9 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations
 
         public async Task<ExerciseComment> ReadById(Guid id)
         {
-            return await _dbContext.ExerciseComments.FindAsync(id);
+            return await _dbContext.ExerciseComments
+                .Include(x => x.Votes)
+                .SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<ExerciseComment>> ReadAllFromGivenExerciseId(Guid id)

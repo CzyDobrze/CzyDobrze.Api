@@ -19,7 +19,9 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations
 
         public async Task<Section> ReadById(Guid id)
         {
-            return await _dbContext.Sections.FindAsync(id);
+            return await _dbContext.Sections
+                .Include(x => x.Exercises)
+                .SingleOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Section>> ReadAllFromGivenTextbookId(Guid id)
