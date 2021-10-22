@@ -29,6 +29,7 @@ namespace CzyDobrze.Domain.Content.Vote
         public Contributor Voter { get; }
         public int Value { get; }
         
-        public AnswerComment Comment { get; }
+        // For EF (navigation property)
+        public AnswerComment Comment { get; private set; }
     }
 }
