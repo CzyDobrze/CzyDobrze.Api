@@ -8,7 +8,7 @@ namespace CzyDobrze.Application.Common.Interfaces.Persistence.Content
     public interface IAnswerCommentRepository
     {
         Task<AnswerComment> ReadById(Guid id);
-        Task<IEnumerable<AnswerComment>> ReadAllFromGivenExerciseId(Guid id);
+        Task<IEnumerable<AnswerComment>> ReadAllFromGivenAnswerId(Guid id);
         
         Task<AnswerComment> Create(Guid parentId, AnswerComment entity);
         Task<AnswerComment> Update(AnswerComment entity);

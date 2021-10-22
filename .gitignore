@@ -453,6 +453,11 @@ $RECYCLE.BIN/
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# NUKE Build System
 .nuke/temp
-
 out
+
+# SQLite database
+*.db
+*.db-shm
+*.db-wal

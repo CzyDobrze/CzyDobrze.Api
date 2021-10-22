@@ -75,6 +75,7 @@ namespace CzyDobrze.Domain.Content.Answer
             _votes.Remove(vote);
         }
         
-        public Exercise.Exercise Exercise { get; }
+        // For EF (navigation property)
+        public Exercise.Exercise Exercise { get; private set; }
     }
 }

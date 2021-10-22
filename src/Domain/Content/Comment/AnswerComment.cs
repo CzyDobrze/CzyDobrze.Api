@@ -46,6 +46,7 @@ namespace CzyDobrze.Domain.Content.Comment
             _votes.Remove(vote);
         }
         
-        public Answer.Answer Answer { get; }
+        // For EF (navigation property)
+        public Answer.Answer Answer { get; private set; }
     }
 }

@@ -62,6 +62,7 @@ namespace CzyDobrze.Domain.Content.Exercise
             _comments.Remove(comment);
         }
         
-        public Section.Section Section { get; }
+        // For EF (navigation property)
+        public Section.Section Section { get; private set; }
     }
 }
