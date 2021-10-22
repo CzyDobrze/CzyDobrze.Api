@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CzyDobrze.Application.Common.Interfaces;
 using CzyDobrze.Core;
 using CzyDobrze.Domain.Content.Answer;
+using CzyDobrze.Domain.Content.Comment;
 using CzyDobrze.Domain.Content.Exercise;
 using CzyDobrze.Domain.Content.Section;
 using CzyDobrze.Domain.Content.Textbook;
@@ -26,6 +27,8 @@ namespace CzyDobrze.Infrastructure.Persistence
         public DbSet<Section> Sections { get; set; }
         public DbSet<Exercise> Exercises { get; set; }
         public DbSet<Answer> Answers { get; set; }
+        public DbSet<ExerciseComment> ExerciseComments { get; set; }
+        public DbSet<AnswerComment> AnswerComments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

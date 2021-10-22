@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CzyDobrze.Application.Common.Interfaces.Persistence.Content;
 using CzyDobrze.Domain.Content.Comment;
+using Microsoft.EntityFrameworkCore;
 
 namespace CzyDobrze.Infrastructure.Persistence.Implementations
 {
@@ -17,27 +19,37 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations
 
         public async Task<ExerciseComment> ReadById(Guid id)
         {
-            throw new NotImplementedException();
+            return await _dbContext.ExerciseComments.FindAsync(id);
         }
 
         public async Task<IEnumerable<ExerciseComment>> ReadAllFromGivenExerciseId(Guid id)
         {
-            throw new NotImplementedException();
+            // TODO not optimal
+            return await _dbContext.Exercises.Where(x => x.Id == id).Select(x => x.Comments).FirstOrDefaultAsync();
         }
 
         public async Task<ExerciseComment> Create(Guid parentId, ExerciseComment entity)
         {
+            var parent = await _dbContext.Exercises.FindAsync(parentId);
+            parent.AddComment(entity);
+            var update = _dbContext.Exercises.Update(parent);
+            await _dbContext.SaveChangesAsync();
+            // TODO return created object
             throw new NotImplementedException();
         }
 
         public async Task<ExerciseComment> Update(ExerciseComment entity)
         {
-            throw new NotImplementedException();
+            var update = _dbContext.ExerciseComments.Update(entity);
+            await _dbContext.SaveChangesAsync();
+
+            return update.Entity;
         }
 
         public async Task Delete(ExerciseComment entity)
         {
-            throw new NotImplementedException();
+            _dbContext.ExerciseComments.Remove(entity);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CzyDobrze.Application.Common.Interfaces.Persistence.Content;
 using CzyDobrze.Domain.Content.Comment;
+using Microsoft.EntityFrameworkCore;
 
 namespace CzyDobrze.Infrastructure.Persistence.Implementations
 {
@@ -17,27 +19,37 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations
 
         public async Task<AnswerComment> ReadById(Guid id)
         {
-            throw new NotImplementedException();
+            return await _dbContext.AnswerComments.FindAsync(id);
         }
 
         public async Task<IEnumerable<AnswerComment>> ReadAllFromGivenAnswerId(Guid id)
         {
-            throw new NotImplementedException();
+            // TODO not optimal
+            return await _dbContext.Answers.Where(x => x.Id == id).Select(x => x.AnswerComments).FirstOrDefaultAsync();
         }
 
         public async Task<AnswerComment> Create(Guid parentId, AnswerComment entity)
         {
+            var parent = await _dbContext.Answers.FindAsync(parentId);
+            parent.AddComment(entity);
+            var update = _dbContext.Answers.Update(parent);
+            await _dbContext.SaveChangesAsync();
+            // TODO return created object
             throw new NotImplementedException();
         }
 
         public async Task<AnswerComment> Update(AnswerComment entity)
         {
-            throw new NotImplementedException();
+            var update = _dbContext.AnswerComments.Update(entity);
+            await _dbContext.SaveChangesAsync();
+
+            return update.Entity;
         }
 
         public async Task Delete(AnswerComment entity)
         {
-            throw new NotImplementedException();
+            _dbContext.Remove(entity);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }
