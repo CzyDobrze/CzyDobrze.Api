@@ -24,8 +24,10 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations
 
         public async Task<IEnumerable<Section>> ReadAllFromGivenTextbookId(Guid id)
         {
-            // TODO not optimal
-            return await _dbContext.Textbooks.Where(x => x.Id == id).Select(x => x.Sections).FirstOrDefaultAsync();
+            return await _dbContext.Textbooks
+                .Where(x => x.Id == id)
+                .Select(x => x.Sections)
+                .SingleOrDefaultAsync();
         }
 
         public async Task<Section> Create(Guid parentId, Section entity)

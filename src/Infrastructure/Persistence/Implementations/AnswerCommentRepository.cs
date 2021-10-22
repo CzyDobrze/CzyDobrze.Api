@@ -24,8 +24,10 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations
 
         public async Task<IEnumerable<AnswerComment>> ReadAllFromGivenAnswerId(Guid id)
         {
-            // TODO not optimal
-            return await _dbContext.Answers.Where(x => x.Id == id).Select(x => x.AnswerComments).FirstOrDefaultAsync();
+            return await _dbContext.Answers
+                .Where(x => x.Id == id)
+                .Select(x => x.AnswerComments)
+                .SingleOrDefaultAsync();
         }
 
         public async Task<AnswerComment> Create(Guid parentId, AnswerComment entity)

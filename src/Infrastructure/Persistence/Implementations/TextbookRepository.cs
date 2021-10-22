@@ -24,16 +24,15 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations
 
         public async Task<IEnumerable<Textbook>> ReadAll()
         {
-            // TODO not optimal
             return await _dbContext.Textbooks.ToArrayAsync();
         }
 
         public async Task<Textbook> Create(Textbook entity)
         {
-            var createdEntity = await _dbContext.Textbooks.AddAsync(entity);
+            var create = await _dbContext.Textbooks.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
             
-            return createdEntity.Entity;
+            return create.Entity;
         }
 
         public async Task<Textbook> Update(Textbook entity)
