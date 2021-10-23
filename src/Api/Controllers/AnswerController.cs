@@ -10,6 +10,7 @@ using CzyDobrze.Application.Comments.ToAnswers.Commands.CreateAnswerComment;
 using CzyDobrze.Application.Comments.ToAnswers.Commands.DeleteAnswerComment;
 using CzyDobrze.Application.Comments.ToAnswers.Commands.UpdateAnswerComment;
 using CzyDobrze.Application.Comments.ToAnswers.Queries.GetAllCommentsToAnswer;
+using CzyDobrze.Application.Comments.ToAnswers.Queries.GetAnswerCommentById;
 using CzyDobrze.Domain.Content.Answer;
 using CzyDobrze.Domain.Content.Comment;
 using MediatR;
@@ -114,6 +115,16 @@ namespace CzyDobrze.Api.Controllers
         public async Task<IEnumerable<AnswerComment>> GetAllCommentsToAnswer(Guid id, int page = 0, int amount = 10)
         {
             return await _mediator.Send(new GetAllCommentsToAnswer(id, page, amount));
+        }
+        
+        [HttpGet("/comment/{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AnswerComment))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<AnswerComment> GetAnswerCommentById(Guid id)
+        {
+            return await _mediator.Send(new GetAnswerCommentById(id));
         }
     }
 }
