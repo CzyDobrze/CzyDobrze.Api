@@ -13,6 +13,7 @@ using CzyDobrze.Application.Comments.ToAnswers.Queries.GetAllCommentsToAnswer;
 using CzyDobrze.Application.Comments.ToAnswers.Queries.GetAnswerCommentById;
 using CzyDobrze.Application.Votes.AnswerVotes.AnswerDownvote;
 using CzyDobrze.Application.Votes.AnswerVotes.AnswerResetVote;
+using CzyDobrze.Application.Votes.AnswerVotes.AnswerUpvote;
 using CzyDobrze.Domain.Content.Answer;
 using CzyDobrze.Domain.Content.Comment;
 using MediatR;
@@ -150,6 +151,18 @@ namespace CzyDobrze.Api.Controllers
         public async Task<IActionResult> ResetVote(Guid id)
         {
             await _mediator.Send(new AnswerResetVote(id));
+            return NoContent();
+        }
+        
+        [HttpPost("{id:guid}/upvote")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Upvote(Guid id)
+        {
+            await _mediator.Send(new AnswerUpvote(id));
             return NoContent();
         }
     }
