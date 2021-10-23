@@ -16,6 +16,7 @@ using CzyDobrze.Application.Exercises.Commands.CreateExercise;
 using CzyDobrze.Application.Exercises.Commands.DeleteExercise;
 using CzyDobrze.Application.Exercises.Commands.UpdateExercise;
 using CzyDobrze.Application.Exercises.Queries.GetExerciseById;
+using CzyDobrze.Application.Votes.ExerciseCommentVotes.ExerciseCommentUpvote;
 using CzyDobrze.Domain.Content.Answer;
 using CzyDobrze.Domain.Content.Comment;
 using CzyDobrze.Domain.Content.Exercise;
@@ -137,6 +138,17 @@ namespace CzyDobrze.Api.Controllers
         public async Task<IEnumerable<ExerciseComment>> GetAllCommentsToExercise(Guid id, int page = 0, int amount = 10)
         {
             return await _mediator.Send(new GetAllCommentsToExercise(id, page, amount));
+        }
+        
+        [HttpPost("comment/{id:guid}/upvote")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> UpvoteComment(Guid id)
+        {
+            await _mediator.Send(new ExerciseCommentUpvote(id));
+            return NoContent();
         }
     }
 }
