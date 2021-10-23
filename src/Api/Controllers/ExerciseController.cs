@@ -10,6 +10,7 @@ using CzyDobrze.Application.Comments.ToExercises.Commands;
 using CzyDobrze.Application.Comments.ToExercises.Commands.CreateExerciseComment;
 using CzyDobrze.Application.Comments.ToExercises.Commands.DeleteExerciseComment;
 using CzyDobrze.Application.Comments.ToExercises.Commands.UpdateExerciseComment;
+using CzyDobrze.Application.Comments.ToExercises.Queries.GetAllCommentsToExercise;
 using CzyDobrze.Application.Comments.ToExercises.Queries.GetExerciseCommentById;
 using CzyDobrze.Application.Exercises.Commands.CreateExercise;
 using CzyDobrze.Application.Exercises.Commands.DeleteExercise;
@@ -126,6 +127,16 @@ namespace CzyDobrze.Api.Controllers
         {
             await _mediator.Send(new DeleteExerciseComment(id));
             return NoContent();
+        }
+
+        [HttpGet("{id:guid}/comments")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerator<ExerciseComment>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IEnumerable<ExerciseComment>> GetAllCommentsToExercise(Guid id, int page = 0, int amount = 10)
+        {
+            return await _mediator.Send(new GetAllCommentsToExercise(id, page, amount));
         }
     }
 }
