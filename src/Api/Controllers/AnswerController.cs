@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CzyDobrze.Api.Models;
 using CzyDobrze.Application.Answers.Commands.CreateAnswer;
@@ -8,6 +9,7 @@ using CzyDobrze.Application.Answers.Queries.GetAnswerById;
 using CzyDobrze.Application.Comments.ToAnswers.Commands.CreateAnswerComment;
 using CzyDobrze.Application.Comments.ToAnswers.Commands.DeleteAnswerComment;
 using CzyDobrze.Application.Comments.ToAnswers.Commands.UpdateAnswerComment;
+using CzyDobrze.Application.Comments.ToAnswers.Queries.GetAllCommentsToAnswer;
 using CzyDobrze.Domain.Content.Answer;
 using CzyDobrze.Domain.Content.Comment;
 using MediatR;
@@ -103,6 +105,15 @@ namespace CzyDobrze.Api.Controllers
             await _mediator.Send(new DeleteAnswerComment(id));
             return NoContent();
         }
-        
+
+        [HttpGet("{id:guid}/comments")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<AnswerComment>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IEnumerable<AnswerComment>> GetAllCommentsToAnswer(Guid id, int page = 0, int amount = 10)
+        {
+            return await _mediator.Send(new GetAllCommentsToAnswer(id, page, amount));
+        }
     }
 }
