@@ -10,6 +10,7 @@ using CzyDobrze.Application.Comments.ToExercises.Commands;
 using CzyDobrze.Application.Comments.ToExercises.Commands.CreateExerciseComment;
 using CzyDobrze.Application.Comments.ToExercises.Commands.DeleteExerciseComment;
 using CzyDobrze.Application.Comments.ToExercises.Commands.UpdateExerciseComment;
+using CzyDobrze.Application.Comments.ToExercises.Queries.GetExerciseCommentById;
 using CzyDobrze.Application.Exercises.Commands.CreateExercise;
 using CzyDobrze.Application.Exercises.Commands.DeleteExercise;
 using CzyDobrze.Application.Exercises.Commands.UpdateExercise;
@@ -92,9 +93,19 @@ namespace CzyDobrze.Api.Controllers
         {
             return await _mediator.Send(new CreateExerciseComment(id, comment));
         }
+        
+        [HttpGet("comment/{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ExerciseComment))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ExerciseComment> GetExerciseCommentById(Guid id)
+        {
+            return await _mediator.Send(new GetExerciseCommentById(id));
+        }
 
 
-        [HttpPut("{id:guid}/comment")]
+        [HttpPut("comment/{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ExerciseComment))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -105,7 +116,7 @@ namespace CzyDobrze.Api.Controllers
             return await _mediator.Send(new UpdateExerciseComment(id, comment));
         }
 
-        [HttpDelete("{id:guid}/comment")]
+        [HttpDelete("comment/{id:guid}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
