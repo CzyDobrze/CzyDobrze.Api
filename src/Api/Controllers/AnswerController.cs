@@ -6,6 +6,7 @@ using CzyDobrze.Application.Answers.Commands.DeleteAnswer;
 using CzyDobrze.Application.Answers.Commands.UpdateAnswer;
 using CzyDobrze.Application.Answers.Queries.GetAnswerById;
 using CzyDobrze.Application.Comments.ToAnswers.Commands.CreateAnswerComment;
+using CzyDobrze.Application.Comments.ToAnswers.Commands.DeleteAnswerComment;
 using CzyDobrze.Application.Comments.ToAnswers.Commands.UpdateAnswerComment;
 using CzyDobrze.Domain.Content.Answer;
 using CzyDobrze.Domain.Content.Comment;
@@ -90,5 +91,18 @@ namespace CzyDobrze.Api.Controllers
         {
             return await _mediator.Send(new UpdateAnswerComment(id, content));
         }
+
+        [HttpDelete("comment/{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DeleteAnswerComment(Guid id)
+        {
+            await _mediator.Send(new DeleteAnswerComment(id));
+            return NoContent();
+        }
+        
     }
 }
