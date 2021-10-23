@@ -25,9 +25,7 @@ namespace CzyDobrze.Application.Comments.ToExercises.Commands.CreateExerciseComm
                 throw new AuthorizationException();
             var exerciseComment = new ExerciseComment(await _userService.GetContributor(), request.Content);
 
-            await _repository.Create(request.ExerciseId, exerciseComment);
-
-            return exerciseComment;
+            return await _repository.Create(request.ExerciseId, exerciseComment);
         }
     }
 }

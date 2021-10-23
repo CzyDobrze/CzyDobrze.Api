@@ -22,6 +22,7 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations
             return await _dbContext.Exercises
                 .Include(x => x.Answers)
                 .Include(x => x.Comments)
+                .Include(x => x.Section)
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 

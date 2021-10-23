@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 
 namespace CzyDobrze.Api
 {
@@ -30,8 +31,10 @@ namespace CzyDobrze.Api
             services.AddControllers(options =>
             {
                 options.Filters.Add(new ApiExceptionFilter(Environment));
-            }).AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
-            // TODO This helps with object cycle, but needs to be changes
+            }).AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
             
             services.AddSwagger();
         }

@@ -33,9 +33,7 @@ namespace CzyDobrze.Application.Comments.ToExercises.Commands.UpdateExerciseComm
             }
             else throw new AuthorizationException();
 
-            await _repository.Update(comment);
-
-            return comment;
+            return await _repository.Update(comment);
         }
     }
 }
