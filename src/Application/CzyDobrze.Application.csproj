@@ -17,9 +17,4 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.11" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Votes\ExerciseCommentVotes\ExerciseCommentDownvote" />
-    <Folder Include="Votes\ExerciseCommentVotes\ExerciseCommentResetVote" />
-  </ItemGroup>
-
 </Project>

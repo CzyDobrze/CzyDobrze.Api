@@ -16,6 +16,8 @@ using CzyDobrze.Application.Exercises.Commands.CreateExercise;
 using CzyDobrze.Application.Exercises.Commands.DeleteExercise;
 using CzyDobrze.Application.Exercises.Commands.UpdateExercise;
 using CzyDobrze.Application.Exercises.Queries.GetExerciseById;
+using CzyDobrze.Application.Votes.ExerciseCommentVotes.ExerciseCommentDownvote;
+using CzyDobrze.Application.Votes.ExerciseCommentVotes.ExerciseCommentResetVote;
 using CzyDobrze.Application.Votes.ExerciseCommentVotes.ExerciseCommentUpvote;
 using CzyDobrze.Domain.Content.Answer;
 using CzyDobrze.Domain.Content.Comment;
@@ -148,6 +150,28 @@ namespace CzyDobrze.Api.Controllers
         public async Task<IActionResult> UpvoteComment(Guid id)
         {
             await _mediator.Send(new ExerciseCommentUpvote(id));
+            return NoContent();
+        }
+        
+        [HttpPost("comment/{id:guid}/downvote")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DownvoteComment(Guid id)
+        {
+            await _mediator.Send(new ExerciseCommentDownvote(id));
+            return NoContent();
+        }
+                
+        [HttpPost("comment/{id:guid}/resetvote")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> ResetVoteComment(Guid id)
+        {
+            await _mediator.Send(new ExerciseCommentResetVote(id));
             return NoContent();
         }
     }
