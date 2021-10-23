@@ -6,6 +6,7 @@ using CzyDobrze.Application.Answers.Commands.DeleteAnswer;
 using CzyDobrze.Application.Answers.Commands.UpdateAnswer;
 using CzyDobrze.Application.Answers.Queries.GetAnswerById;
 using CzyDobrze.Application.Comments.ToAnswers.Commands.CreateAnswerComment;
+using CzyDobrze.Application.Comments.ToAnswers.Commands.UpdateAnswerComment;
 using CzyDobrze.Domain.Content.Answer;
 using CzyDobrze.Domain.Content.Comment;
 using MediatR;
@@ -47,7 +48,7 @@ namespace CzyDobrze.Api.Controllers
         }
         
         [HttpPut("{id:guid}")]
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Answer))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Answer))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -77,6 +78,17 @@ namespace CzyDobrze.Api.Controllers
         public async Task<AnswerComment> CreateAnswerComment(Guid id, string content)
         {
             return await _mediator.Send(new CreateAnswerComment(id, content));
+        }
+        
+        [HttpPut("comment/{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AnswerComment))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<AnswerComment> UpdateAnswerComment(Guid id, string content)
+        {
+            return await _mediator.Send(new UpdateAnswerComment(id, content));
         }
     }
 }
