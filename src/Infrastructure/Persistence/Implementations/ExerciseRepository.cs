@@ -23,15 +23,14 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations
                 .Include(x => x.Answers)
                 .Include(x => x.Comments)
                 .Include(x => x.Section)
-                .SingleOrDefaultAsync(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<Exercise>> ReadAllFromGivenSectionId(Guid id)
         {
-            return await _dbContext.Sections
-                .Where(x => x.Id == id)
-                .Select(x => x.Exercises)
-                .SingleOrDefaultAsync();
+            var section = await _dbContext.Sections
+                .FirstOrDefaultAsync(x => x.Id == id);
+            return section?.Exercises;
         }
 
         public async Task<Exercise> Create(Guid parentId, Exercise entity)

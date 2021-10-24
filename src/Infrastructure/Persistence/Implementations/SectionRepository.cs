@@ -22,7 +22,7 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations
             return await _dbContext.Sections
                 .Include(x => x.Exercises)
                 .Include(x => x.Textbook)
-                .SingleOrDefaultAsync();
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<Section>> ReadAllFromGivenTextbookId(Guid id)
@@ -30,7 +30,7 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations
             return await _dbContext.Textbooks
                 .Where(x => x.Id == id)
                 .Select(x => x.Sections)
-                .SingleOrDefaultAsync();
+                .FirstOrDefaultAsync();
         }
 
         public async Task<Section> Create(Guid parentId, Section entity)
