@@ -22,6 +22,7 @@ using CzyDobrze.Application.Votes.ExerciseCommentVotes.ExerciseCommentUpvote;
 using CzyDobrze.Domain.Content.Answer;
 using CzyDobrze.Domain.Content.Comment;
 using CzyDobrze.Domain.Content.Exercise;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CzyDobrze.Api.Controllers
 {
@@ -47,6 +48,7 @@ namespace CzyDobrze.Api.Controllers
         }
         
         [HttpPost]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Exercise))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -58,6 +60,7 @@ namespace CzyDobrze.Api.Controllers
         }
         
         [HttpPut("{id:guid}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Exercise))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -68,6 +71,7 @@ namespace CzyDobrze.Api.Controllers
         }
 
         [HttpDelete("{id:guid}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -89,6 +93,7 @@ namespace CzyDobrze.Api.Controllers
         }
 
         [HttpPost("{id:guid}/comment")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ExerciseComment))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -110,6 +115,7 @@ namespace CzyDobrze.Api.Controllers
 
 
         [HttpPut("comment/{id:guid}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ExerciseComment))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -121,6 +127,7 @@ namespace CzyDobrze.Api.Controllers
         }
 
         [HttpDelete("comment/{id:guid}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -143,6 +150,7 @@ namespace CzyDobrze.Api.Controllers
         }
         
         [HttpPost("comment/{id:guid}/upvote")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -154,6 +162,7 @@ namespace CzyDobrze.Api.Controllers
         }
         
         [HttpPost("comment/{id:guid}/downvote")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -165,6 +174,7 @@ namespace CzyDobrze.Api.Controllers
         }
                 
         [HttpPost("comment/{id:guid}/resetvote")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
