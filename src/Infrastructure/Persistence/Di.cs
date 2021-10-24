@@ -16,7 +16,7 @@ namespace CzyDobrze.Infrastructure.Persistence
         {
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseSqlite("Data Source=db/czydobrze.db", x =>
+                options.UseSqlite("Data Source=czydobrze.db", x =>
                 {
                     x.MigrationsAssembly(typeof(AppDbContext).Assembly.GetName().Name);
                 });
