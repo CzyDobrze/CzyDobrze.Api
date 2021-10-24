@@ -7,6 +7,7 @@ namespace CzyDobrze.Application.Common.Interfaces.Persistence.Users
 {
     public interface IContributorRepository
     {
+        // TODO implementation
         Task<Contributor> ReadById(Guid id);
         Task<IEnumerable<Contributor>> ReadAll();
         

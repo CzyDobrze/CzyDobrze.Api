@@ -7,6 +7,7 @@ namespace CzyDobrze.Application.Common.Interfaces.Persistence.Users
 {
     public interface IModeratorRepository
     {
+        // TODO implementation
         Task<Moderator> ReadById(Guid id);
         Task<IEnumerable<Moderator>> ReadAll();
         
