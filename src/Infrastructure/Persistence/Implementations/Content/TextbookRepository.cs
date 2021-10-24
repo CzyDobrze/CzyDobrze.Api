@@ -20,7 +20,7 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations.Content
         {
             return await _dbContext.Textbooks
                 .Include(x => x.Sections)
-                .SingleOrDefaultAsync(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<Textbook>> ReadAll()
