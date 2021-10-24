@@ -9,6 +9,8 @@ namespace CzyDobrze.Infrastructure.Persistence.TypeConfigurations.Identity
         public void Configure(EntityTypeBuilder<DbUser> builder)
         {
             builder.HasKey(x => x.Id);
+
+            builder.ToTable("Users");
             
             builder.Property(x => x.Created)
                 .HasColumnType("datetime")

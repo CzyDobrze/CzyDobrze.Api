@@ -9,8 +9,11 @@ namespace CzyDobrze.Infrastructure.Persistence.TypeConfigurations.Users
         public void Configure(EntityTypeBuilder<Moderator> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.ToSqlQuery("Select Id, Created, Updated FROM Users Where IsModerator = 1");
-            builder.ToView("Moderator");
+            
+            builder.ToSqlQuery("SELECT Id, Created, Updated FROM Users Where IsModerator = 1");
+            builder.ToView("Moderators");
+
+            builder.Property(x => x.Created);
         }
     }
 }

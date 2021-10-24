@@ -9,8 +9,11 @@ namespace CzyDobrze.Infrastructure.Persistence.TypeConfigurations.Users
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(x => x.Id);
+            
             builder.ToSqlQuery("SELECT Id, Created, Updated, DisplayName FROM Users");
-            builder.ToView("User");
+            builder.ToView("DomainUsers");
+            
+            builder.Property(x => x.Created);
         }
     }
 }

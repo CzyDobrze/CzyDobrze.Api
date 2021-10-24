@@ -326,6 +326,12 @@ namespace CzyDobrze.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("TEXT");
+
                     b.Property<uint>("Points")
                         .HasColumnType("INTEGER");
 
@@ -334,10 +340,10 @@ namespace CzyDobrze.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToView("Contributor");
+                    b.ToView("Contributors");
 
                     b
-                        .HasAnnotation("Relational:SqlQuery", "Select Id, Created, Updated, DisplayName, Points FROM Users WHERE IsContributor = 1");
+                        .HasAnnotation("Relational:SqlQuery", "SELECT Id, Created, Updated, DisplayName, Points FROM Users WHERE IsContributor = 1");
                 });
 
             modelBuilder.Entity("CzyDobrze.Domain.Users.Moderator.Moderator", b =>
@@ -346,21 +352,27 @@ namespace CzyDobrze.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("Updated")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToView("Moderator");
+                    b.ToView("Moderators");
 
                     b
-                        .HasAnnotation("Relational:SqlQuery", "Select Id, Created, Updated FROM Users Where IsModerator = 1");
+                        .HasAnnotation("Relational:SqlQuery", "SELECT Id, Created, Updated FROM Users Where IsModerator = 1");
                 });
 
             modelBuilder.Entity("CzyDobrze.Domain.Users.User.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Created")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DisplayName")
@@ -371,7 +383,7 @@ namespace CzyDobrze.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToView("User");
+                    b.ToView("DomainUsers");
 
                     b
                         .HasAnnotation("Relational:SqlQuery", "SELECT Id, Created, Updated, DisplayName FROM Users");

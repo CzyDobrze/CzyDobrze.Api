@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,9 +9,6 @@ using CzyDobrze.Domain.Content.Comment;
 using CzyDobrze.Domain.Content.Exercise;
 using CzyDobrze.Domain.Content.Section;
 using CzyDobrze.Domain.Content.Textbook;
-using CzyDobrze.Domain.Users.Contributor;
-using CzyDobrze.Domain.Users.Moderator;
-using CzyDobrze.Domain.Users.User;
 using CzyDobrze.Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,10 +32,6 @@ namespace CzyDobrze.Infrastructure.Persistence
         
         public DbSet<DbUser> Users { get; set; }
         
-        public DbSet<User> DomainUsers { get; set; }
-        public DbSet<Contributor> Contributors { get; set; }
-        public DbSet<Moderator> Moderators { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
