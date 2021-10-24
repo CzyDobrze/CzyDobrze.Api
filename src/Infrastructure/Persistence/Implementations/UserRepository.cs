@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using CzyDobrze.Application.Common.Interfaces.Persistence.Users;
 using CzyDobrze.Domain.Users.User;
-using CzyDobrze.Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace CzyDobrze.Infrastructure.Persistence.Implementations

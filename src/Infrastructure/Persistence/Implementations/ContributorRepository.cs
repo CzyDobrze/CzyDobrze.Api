@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using CzyDobrze.Application.Common.Interfaces.Persistence.Users;
 using CzyDobrze.Domain.Users.Contributor;
-using CzyDobrze.Domain.Users.User;
 using Microsoft.EntityFrameworkCore;
 
 namespace CzyDobrze.Infrastructure.Persistence.Implementations
@@ -54,7 +53,9 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations
         {
             var dbUser = await _dbContext.Users.FindAsync(entity.Id);
             if (dbUser == null) return;
-            _dbContext.Users.Remove(dbUser);
+            dbUser.IsContributor = false;
+            _dbContext.Users.Update(dbUser);
+            return;
         }
     }
 }

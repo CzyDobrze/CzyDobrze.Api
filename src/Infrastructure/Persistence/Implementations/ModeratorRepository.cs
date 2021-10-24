@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CzyDobrze.Application.Common.Interfaces.Persistence.Users;
 using CzyDobrze.Domain.Users.Moderator;
+using Microsoft.EntityFrameworkCore;
 
 namespace CzyDobrze.Infrastructure.Persistence.Implementations
 {
@@ -15,29 +17,43 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations
             _dbContext = dbContext;
         }
 
-        public Task<Moderator> ReadById(Guid id)
+        public async Task<Moderator> ReadById(Guid id)
         {
-            throw new NotImplementedException();
+            var dbUser = await _dbContext.Users.FindAsync(id);
+            if (dbUser == null) return null;
+            return new Moderator(dbUser.Id, dbUser.Created, dbUser.Updated);
         }
 
-        public Task<IEnumerable<Moderator>> ReadAll()
+        public async Task<IEnumerable<Moderator>> ReadAll()
         {
-            throw new NotImplementedException();
+            var dbUsers = await _dbContext.Users.ToListAsync();
+            return dbUsers.Where(x => x.IsModerator).Select(dbUser => new Moderator(dbUser.Id, dbUser.Created, dbUser.Updated)).ToList();
         }
 
-        public Task<Moderator> Create(Moderator entity)
+        public async Task<Moderator> Create(Moderator entity)
         {
-            throw new NotImplementedException();
+            var dbUser = await _dbContext.Users.FindAsync(entity.Id);
+            if (dbUser == null) return null;
+            dbUser.IsContributor = true;
+            _dbContext.Users.Update(dbUser);
+            return new Moderator(dbUser.Id, dbUser.Created, dbUser.Updated);
         }
 
-        public Task<Moderator> Update(Moderator entity)
+        public async Task<Moderator> Update(Moderator entity)
         {
-            throw new NotImplementedException();
+            var dbUser = await _dbContext.Users.FindAsync(entity.Id);
+            if (dbUser is not { IsModerator: true }) return null;
+            _dbContext.Users.Update(dbUser);
+            return new Moderator(dbUser.Id, dbUser.Created, dbUser.Updated);
         }
 
-        public Task Delete(Moderator entity)
+        public async Task Delete(Moderator entity)
         {
-            throw new NotImplementedException();
+            var dbUser = await _dbContext.Users.FindAsync(entity.Id);
+            if (dbUser == null) return;
+            dbUser.IsModerator = false;
+            _dbContext.Users.Update(dbUser);
+            return;
         }
     }
 }
