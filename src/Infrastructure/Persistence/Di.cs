@@ -1,5 +1,6 @@
 ﻿using CzyDobrze.Application.Common.Interfaces;
 using CzyDobrze.Application.Common.Interfaces.Persistence.Content;
+using CzyDobrze.Application.Common.Interfaces.Persistence.Users;
 using CzyDobrze.Infrastructure.Persistence.Implementations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +25,11 @@ namespace CzyDobrze.Infrastructure.Persistence
             services.AddTransient<IAnswerRepository, AnswerRepository>();
             services.AddTransient<IExerciseCommentRepository, ExerciseCommentRepository>();
             services.AddTransient<IAnswerCommentRepository, AnswerCommentRepository>();
-            
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IContributorRepository, ContributorRepository>();
+            services.AddTransient<IModeratorRepository, ModeratorRepository>();
+            services.AddTransient<IDbUserRepository, DbUserRepository>();
+
             // ToDo Remove Dummy Current User Service
             services.AddTransient<ICurrentUserService, DummyCurrentUserService>();
             
