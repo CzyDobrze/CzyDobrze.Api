@@ -24,10 +24,7 @@ namespace CzyDobrze.Infrastructure.Persistence
             services.AddTransient<IAnswerRepository, AnswerRepository>();
             services.AddTransient<IExerciseCommentRepository, ExerciseCommentRepository>();
             services.AddTransient<IAnswerCommentRepository, AnswerCommentRepository>();
-            
-            // ToDo Remove Dummy Current User Service
-            services.AddTransient<ICurrentUserService, DummyCurrentUserService>();
-            
+
             return services;
         }
     }

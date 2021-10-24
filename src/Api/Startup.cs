@@ -37,6 +37,7 @@ namespace CzyDobrze.Api
             });
             
             services.AddSwagger();
+            services.AddAuth0();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -45,13 +46,12 @@ namespace CzyDobrze.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseConfiguredSwagger();
-
+            
             app.UseRouting();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             
-            app.UseAuthorization();
+            app.UseConfiguredSwagger();
+            app.UseAuth0();
 
             app.UseEndpoints(endpoints =>
             {

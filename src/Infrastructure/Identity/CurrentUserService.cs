@@ -5,46 +5,38 @@ using CzyDobrze.Domain.Users.Contributor;
 using CzyDobrze.Domain.Users.Moderator;
 using CzyDobrze.Domain.Users.User;
 
-namespace CzyDobrze.Infrastructure
+namespace CzyDobrze.Infrastructure.Identity
 {
-    public class DummyCurrentUserService : ICurrentUserService
+    public class CurrentUserService : ICurrentUserService
     {
-        
-        // This crappy delays are here just to hide warnings :)
         public async Task<User> GetUser()
         {
-            await Task.Delay(1);
-            return new User("Test");
+            throw new NotImplementedException();
         }
 
         public async Task<Contributor> GetContributor()
         {
-            await Task.Delay(1);
-            return new Contributor();
+            throw new NotImplementedException();
         }
 
         public async Task<Moderator> GetModerator()
         {
-            await Task.Delay(1);
             throw new NotImplementedException();
         }
 
         public async Task<bool> IsContributor()
         {
-            await Task.Delay(1);
-            return true;
+            throw new NotImplementedException();
         }
 
         public async Task<bool> IsModerator()
         {
-            await Task.Delay(1);
-            return true;
+            throw new NotImplementedException();
         }
 
         public async Task<Guid> GetUserId()
         {
-            await Task.Delay(1);
-            return new Guid();
+            throw new NotImplementedException();
         }
     }
 }
