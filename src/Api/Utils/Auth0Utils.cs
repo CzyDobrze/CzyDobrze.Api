@@ -14,7 +14,16 @@ namespace CzyDobrze.Api.Utils
         public static IServiceCollection AddAuth0(this IServiceCollection services)
         {
             var rsa = RSA.Create();
-            rsa.FromXmlString(File.ReadAllText("rsa.xml"));
+            
+            try
+            {
+                rsa.FromXmlString(File.ReadAllText("rsa.xml"));
+            }
+            catch
+            {
+                // ignored
+            }
+
             var securityKey = new RsaSecurityKey(rsa);
 
             services

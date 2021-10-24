@@ -1,8 +1,8 @@
-using System.Text.Json.Serialization;
 using CzyDobrze.Api.Filters;
 using CzyDobrze.Api.Utils;
 using CzyDobrze.Application;
 using CzyDobrze.Infrastructure;
+using CzyDobrze.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -46,6 +46,8 @@ namespace CzyDobrze.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseInfrastructure();
             
             app.UseRouting();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());

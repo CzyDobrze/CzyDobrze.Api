@@ -1,11 +1,10 @@
-﻿using CzyDobrze.Application.Common.Interfaces;
-using CzyDobrze.Application.Common.Interfaces.Persistence.Content;
+﻿using CzyDobrze.Application.Common.Interfaces.Persistence.Content;
 using CzyDobrze.Application.Common.Interfaces.Persistence.Users;
 using CzyDobrze.Infrastructure.Persistence.Identity;
-using CzyDobrze.Infrastructure.Persistence.Implementations;
 using CzyDobrze.Infrastructure.Persistence.Implementations.Content;
 using CzyDobrze.Infrastructure.Persistence.Implementations.Identity;
 using CzyDobrze.Infrastructure.Persistence.Implementations.Users;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,7 +16,7 @@ namespace CzyDobrze.Infrastructure.Persistence
         {
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseSqlite("Data Source=czydobrze.db", x =>
+                options.UseSqlite("Data Source=db/czydobrze.db", x =>
                 {
                     x.MigrationsAssembly(typeof(AppDbContext).Assembly.GetName().Name);
                 });
@@ -37,6 +36,15 @@ namespace CzyDobrze.Infrastructure.Persistence
             services.AddTransient<IDbUserRepository, DbUserRepository>();
             
             return services;
+        }
+
+        public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
+        {
+            app
+                .ApplicationServices.CreateScope().ServiceProvider
+                .GetService<AppDbContext>()?.Database.Migrate();
+
+            return app;
         }
     }
 }
