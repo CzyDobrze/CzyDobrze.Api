@@ -22,7 +22,7 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations
             return await _dbContext.Answers
                 .Include(x => x.AnswerComments)
                 .Include(x => x.Votes)
-                .SingleOrDefaultAsync(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<Answer>> ReadAllFromGivenExerciseId(Guid id)
@@ -30,7 +30,7 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations
             return await _dbContext.Exercises
                 .Where(x => x.Id == id)
                 .Select(x => x.Answers)
-                .SingleOrDefaultAsync();
+                .FirstOrDefaultAsync();
         }
 
         public async Task<Answer> Create(Guid parentId, Answer entity)
