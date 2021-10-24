@@ -7,4 +7,4 @@ FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine
 LABEL org.opencontainers.image.authors="Stanisław Nieradko <stanislaw@nieradko.com>"
 WORKDIR /app
 COPY --from=build /app/out .
-ENTRYPOINT [ "dotnet", "CzyDobrze.Api.dll" ]
+CMD [ "dotnet", "CzyDobrze.Api.dll" ]
