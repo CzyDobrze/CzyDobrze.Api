@@ -8,6 +8,11 @@ namespace CzyDobrze.Infrastructure.Persistence.TypeConfigurations.Content.Votes
     {
         public void Configure(EntityTypeBuilder<ExerciseCommentVote> builder)
         {
+            builder
+                .HasOne(x => x.Voter)
+                .WithMany()
+                .IsRequired();
+            
             builder.HasKey(x => x.Id);
             
             builder.Property(x => x.Created)

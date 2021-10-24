@@ -8,6 +8,11 @@ namespace CzyDobrze.Infrastructure.Persistence.TypeConfigurations.Content.Commen
     {
         public void Configure(EntityTypeBuilder<ExerciseComment> builder)
         {
+            builder
+                .HasOne(x => x.Author)
+                .WithMany()
+                .IsRequired();
+            
             builder.HasKey(x => x.Id);
             
             builder.Property(x => x.Created)

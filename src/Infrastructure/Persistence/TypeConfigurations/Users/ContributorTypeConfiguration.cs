@@ -10,6 +10,7 @@ namespace CzyDobrze.Infrastructure.Persistence.TypeConfigurations.Users
         {
             builder.HasKey(x => x.Id);
             builder.ToSqlQuery("Select Id, Created, Updated, DisplayName, Points FROM Users WHERE IsContributor = 1");
+            builder.ToView("Contributor");
         }
     }
 }

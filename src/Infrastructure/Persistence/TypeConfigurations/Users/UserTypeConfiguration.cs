@@ -10,6 +10,7 @@ namespace CzyDobrze.Infrastructure.Persistence.TypeConfigurations.Users
         {
             builder.HasKey(x => x.Id);
             builder.ToSqlQuery("SELECT Id, Created, Updated, DisplayName FROM Users");
+            builder.ToView("User");
         }
     }
 }
