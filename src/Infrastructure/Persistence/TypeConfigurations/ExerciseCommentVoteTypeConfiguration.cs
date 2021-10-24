@@ -13,10 +13,13 @@ namespace CzyDobrze.Infrastructure.Persistence.TypeConfigurations
             builder.Property(x => x.Created)
                 .HasColumnType("datetime")
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
-            
+
             builder.Property(x => x.Updated)
                 .HasColumnType("datetime")
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+            builder.Property(x => x.Value)
+                .HasColumnType("int");
         }
     }
 }
