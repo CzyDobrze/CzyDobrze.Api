@@ -12,6 +12,7 @@ using CzyDobrze.Domain.Content.Section;
 using System.Collections.Generic;
 using CzyDobrze.Application.Exercises.Queries.GetAllExercisesFromSection;
 using CzyDobrze.Domain.Content.Exercise;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CzyDobrze.Api.Controllers
 {
@@ -37,6 +38,7 @@ namespace CzyDobrze.Api.Controllers
         }
         
         [HttpPost]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Section))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -48,6 +50,7 @@ namespace CzyDobrze.Api.Controllers
         }
         
         [HttpPut("{id:guid}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Section))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -58,6 +61,7 @@ namespace CzyDobrze.Api.Controllers
         }
         
         [HttpDelete("{id:guid}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
