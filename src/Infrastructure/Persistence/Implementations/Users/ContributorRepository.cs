@@ -20,42 +20,56 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations.Users
         public async Task<Contributor> ReadById(Guid id)
         {
             var dbUser = await _dbContext.Users.FindAsync(id);
-            if (dbUser == null) return null;
-            return new Contributor(dbUser.Id, dbUser.Created, dbUser.Updated, dbUser.DisplayName, dbUser.Points);
+            return dbUser is not {IsContributor: true} ? null : 
+                new Contributor(dbUser.Id, dbUser.Created, dbUser.Updated, dbUser.DisplayName, dbUser.Points);
         }
 
         public async Task<IEnumerable<Contributor>> ReadAll()
         {
-            var dbUsers = await _dbContext.Users.ToListAsync();
-            return dbUsers.Where(x => x.IsContributor).Select(dbUser => new Contributor(dbUser.Id, dbUser.Created, dbUser.Updated, dbUser.DisplayName, dbUser.Points)).ToList();
+            return await _dbContext.Users
+                .Where(x => x.IsContributor)
+                .Select(dbuser => new Contributor(dbuser.Id, dbuser.Created, dbuser.Updated, dbuser.DisplayName, dbuser.Points))
+                .ToArrayAsync();
         }
 
         public async Task<Contributor> Create(Contributor entity)
         {
             var dbUser = await _dbContext.Users.FindAsync(entity.Id);
+            
             if (dbUser == null) return null;
+            dbUser.DisplayName = entity.DisplayName;
+            dbUser.Points = entity.Points;
             dbUser.IsContributor = true;
+
             _dbContext.Users.Update(dbUser);
+            await _dbContext.SaveChangesAsync();
+            
             return new Contributor(dbUser.Id, dbUser.Created, dbUser.Updated, dbUser.DisplayName, dbUser.Points);
         }
 
         public async Task<Contributor> Update(Contributor entity)
         {
             var dbUser = await _dbContext.Users.FindAsync(entity.Id);
+
             if (dbUser is not { IsContributor: true }) return null;
             dbUser.DisplayName = entity.DisplayName;
             dbUser.Points = entity.Points;
+            
             _dbContext.Users.Update(dbUser);
+            await _dbContext.SaveChangesAsync();
+            
             return new Contributor(dbUser.Id, dbUser.Created, dbUser.Updated, dbUser.DisplayName, dbUser.Points);
         }
 
         public async Task Delete(Contributor entity)
         {
             var dbUser = await _dbContext.Users.FindAsync(entity.Id);
+            
             if (dbUser == null) return;
             dbUser.IsContributor = false;
+            
             _dbContext.Users.Update(dbUser);
-            return;
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

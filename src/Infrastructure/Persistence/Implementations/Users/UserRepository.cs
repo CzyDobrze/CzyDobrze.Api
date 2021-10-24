@@ -20,30 +20,35 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations.Users
         public async Task<User> ReadById(Guid id)
         {
             var user = await _dbContext.Users.FindAsync(id);
-            if (user == null) return null;
-            return new User(user.Id, user.Created, user.Updated, user.DisplayName);
+            return user == null ? null : new User(user.Id, user.Created, user.Updated, user.DisplayName);
         }
 
         public async Task<IEnumerable<User>> ReadAll()
         {
-            var dbUsers = await _dbContext.Users.ToListAsync();
-            return dbUsers.Select(dbUser => new User(dbUser.Id, dbUser.Created, dbUser.Updated, dbUser.DisplayName)).ToList();
+            return await _dbContext.Users
+                .Select(dbuser => new User(dbuser.Id, dbuser.Created, dbuser.Updated, dbuser.DisplayName))
+                .ToArrayAsync();
         }
 
         public async Task<User> Update(User entity)
         {
             var dbUser = await _dbContext.Users.FindAsync(entity.Id);
-            if (dbUser == null) return null;
+
+            if (dbUser is null) return null;
             dbUser.DisplayName = entity.DisplayName;
+            
             _dbContext.Users.Update(dbUser);
+            await _dbContext.SaveChangesAsync();
+            
             return new User(dbUser.Id, dbUser.Created, dbUser.Updated, dbUser.DisplayName);
         }
 
         public async Task Delete(User entity)
         {
             var dbUser = await _dbContext.Users.FindAsync(entity.Id);
-            if (dbUser == null) return;
+            
             _dbContext.Users.Remove(dbUser);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

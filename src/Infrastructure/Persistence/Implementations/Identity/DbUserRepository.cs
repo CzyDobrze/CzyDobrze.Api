@@ -22,26 +22,29 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations.Identity
 
         public async Task<IEnumerable<DbUser>> ReadAll()
         {
-            return await _dbContext.Users.ToListAsync();
+            return await _dbContext.Users.ToArrayAsync();
         }
 
         public async Task<DbUser> Create(DbUser entity)
         {
             var dbUser = await _dbContext.Users.AddAsync(entity);
+            await _dbContext.SaveChangesAsync();
+            
             return dbUser.Entity;
         }
 
         public async Task<DbUser> Update(DbUser entity)
         {
             var dbUser = _dbContext.Users.Update(entity);
-            if (dbUser == null) return null;
-            return await Task.FromResult(dbUser.Entity);
+            await _dbContext.SaveChangesAsync();
+
+            return dbUser.Entity;
         }
 
-        public Task Delete(DbUser entity)
+        public async Task Delete(DbUser entity)
         {
             _dbContext.Users.Remove(entity);
-            return Task.CompletedTask;
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

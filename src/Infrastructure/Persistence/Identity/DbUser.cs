@@ -1,5 +1,4 @@
 ﻿using System;
-using MediatR;
 
 namespace CzyDobrze.Infrastructure.Persistence.Identity
 {

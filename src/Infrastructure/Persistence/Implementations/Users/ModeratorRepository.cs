@@ -20,40 +20,52 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations.Users
         public async Task<Moderator> ReadById(Guid id)
         {
             var dbUser = await _dbContext.Users.FindAsync(id);
-            if (dbUser == null) return null;
-            return new Moderator(dbUser.Id, dbUser.Created, dbUser.Updated);
+            return dbUser is not {IsModerator: true} ? null : 
+                new Moderator(dbUser.Id, dbUser.Created, dbUser.Updated);
         }
 
         public async Task<IEnumerable<Moderator>> ReadAll()
         {
-            var dbUsers = await _dbContext.Users.ToListAsync();
-            return dbUsers.Where(x => x.IsModerator).Select(dbUser => new Moderator(dbUser.Id, dbUser.Created, dbUser.Updated)).ToList();
+            return await _dbContext.Users
+                .Where(x => x.IsModerator)
+                .Select(dbuser => new Moderator(dbuser.Id, dbuser.Created, dbuser.Updated))
+                .ToArrayAsync();
         }
 
         public async Task<Moderator> Create(Moderator entity)
         {
             var dbUser = await _dbContext.Users.FindAsync(entity.Id);
+            
             if (dbUser == null) return null;
             dbUser.IsContributor = true;
+            
             _dbContext.Users.Update(dbUser);
+            await _dbContext.SaveChangesAsync();
+            
             return new Moderator(dbUser.Id, dbUser.Created, dbUser.Updated);
         }
 
         public async Task<Moderator> Update(Moderator entity)
         {
             var dbUser = await _dbContext.Users.FindAsync(entity.Id);
+            
             if (dbUser is not { IsModerator: true }) return null;
+           
             _dbContext.Users.Update(dbUser);
+            await _dbContext.SaveChangesAsync();
+            
             return new Moderator(dbUser.Id, dbUser.Created, dbUser.Updated);
         }
 
         public async Task Delete(Moderator entity)
         {
             var dbUser = await _dbContext.Users.FindAsync(entity.Id);
+            
             if (dbUser == null) return;
             dbUser.IsModerator = false;
+
             _dbContext.Users.Update(dbUser);
-            return;
+            await _dbContext.SaveChangesAsync();
         }
     }
 }
