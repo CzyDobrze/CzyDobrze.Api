@@ -1,12 +1,12 @@
-﻿using CzyDobrze.Domain.Content.Comment;
+﻿using CzyDobrze.Domain.Content.Section;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CzyDobrze.Infrastructure.Persistence.TypeConfigurations
+namespace CzyDobrze.Infrastructure.Persistence.TypeConfigurations.Content
 {
-    public class ExerciseCommentTypeConfiguration : IEntityTypeConfiguration<ExerciseComment>
+    public class SectionTypeConfiguration : IEntityTypeConfiguration<Section>
     {
-        public void Configure(EntityTypeBuilder<ExerciseComment> builder)
+        public void Configure(EntityTypeBuilder<Section> builder)
         {
             builder.HasKey(x => x.Id);
             

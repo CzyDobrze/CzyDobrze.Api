@@ -1,12 +1,12 @@
-﻿using CzyDobrze.Infrastructure.Persistence.Identity;
+﻿using CzyDobrze.Domain.Content.Comment;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CzyDobrze.Infrastructure.Persistence.TypeConfigurations
+namespace CzyDobrze.Infrastructure.Persistence.TypeConfigurations.Content.Comments
 {
-    public class DbUserTypeConfiguration : IEntityTypeConfiguration<DbUser>
+    public class ExerciseCommentTypeConfiguration : IEntityTypeConfiguration<ExerciseComment>
     {
-        public void Configure(EntityTypeBuilder<DbUser> builder)
+        public void Configure(EntityTypeBuilder<ExerciseComment> builder)
         {
             builder.HasKey(x => x.Id);
             

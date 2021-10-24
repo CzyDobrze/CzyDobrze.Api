@@ -27,7 +27,7 @@ namespace CzyDobrze.Domain.Content.Answer
             Author = author;
         }
         
-        public Contributor Author { get; }
+        public Contributor Author { get; init; }
         public string Content { get; private set; }
         
         public bool Accepted { get; private set; }
