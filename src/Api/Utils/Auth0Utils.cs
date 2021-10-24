@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Security.Cryptography;
+using CzyDobrze.Api.Services;
 using CzyDobrze.Application.Common.Interfaces;
-using CzyDobrze.Infrastructure.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;

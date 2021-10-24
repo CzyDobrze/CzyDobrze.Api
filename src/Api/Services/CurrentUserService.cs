@@ -4,11 +4,19 @@ using CzyDobrze.Application.Common.Interfaces;
 using CzyDobrze.Domain.Users.Contributor;
 using CzyDobrze.Domain.Users.Moderator;
 using CzyDobrze.Domain.Users.User;
+using Microsoft.AspNetCore.Http;
 
-namespace CzyDobrze.Infrastructure.Identity
+namespace CzyDobrze.Api.Services
 {
     public class CurrentUserService : ICurrentUserService
     {
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public CurrentUserService(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+        }
+
         public async Task<User> GetUser()
         {
             throw new NotImplementedException();
