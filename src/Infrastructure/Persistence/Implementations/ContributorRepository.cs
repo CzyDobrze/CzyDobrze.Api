@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CzyDobrze.Application.Common.Interfaces.Persistence.Users;
 using CzyDobrze.Domain.Users.Contributor;
+using CzyDobrze.Domain.Users.User;
+using Microsoft.EntityFrameworkCore;
 
 namespace CzyDobrze.Infrastructure.Persistence.Implementations
 {
@@ -15,29 +18,43 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations
             _dbContext = dbContext;
         }
 
-        public Task<Contributor> ReadById(Guid id)
+        public async Task<Contributor> ReadById(Guid id)
         {
-            throw new NotImplementedException();
+            var dbUser = await _dbContext.Users.FindAsync(id);
+            if (dbUser == null) return null;
+            return new Contributor(dbUser.Id, dbUser.Created, dbUser.Updated, dbUser.DisplayName, dbUser.Points);
         }
 
-        public Task<IEnumerable<Contributor>> ReadAll()
+        public async Task<IEnumerable<Contributor>> ReadAll()
         {
-            throw new NotImplementedException();
+            var dbUsers = await _dbContext.Users.ToListAsync();
+            return dbUsers.Where(x => x.IsContributor).Select(dbUser => new Contributor(dbUser.Id, dbUser.Created, dbUser.Updated, dbUser.DisplayName, dbUser.Points)).ToList();
         }
 
-        public Task<Contributor> Create(Contributor entity)
+        public async Task<Contributor> Create(Contributor entity)
         {
-            throw new NotImplementedException();
+            var dbUser = await _dbContext.Users.FindAsync(entity.Id);
+            if (dbUser == null) return null;
+            dbUser.IsContributor = true;
+            _dbContext.Users.Update(dbUser);
+            return new Contributor(dbUser.Id, dbUser.Created, dbUser.Updated, dbUser.DisplayName, dbUser.Points);
         }
 
-        public Task<Contributor> Update(Contributor entity)
+        public async Task<Contributor> Update(Contributor entity)
         {
-            throw new NotImplementedException();
+            var dbUser = await _dbContext.Users.FindAsync(entity.Id);
+            if (dbUser is not { IsContributor: true }) return null;
+            dbUser.DisplayName = entity.DisplayName;
+            dbUser.Points = entity.Points;
+            _dbContext.Users.Update(dbUser);
+            return new Contributor(dbUser.Id, dbUser.Created, dbUser.Updated, dbUser.DisplayName, dbUser.Points);
         }
 
-        public Task Delete(Contributor entity)
+        public async Task Delete(Contributor entity)
         {
-            throw new NotImplementedException();
+            var dbUser = await _dbContext.Users.FindAsync(entity.Id);
+            if (dbUser == null) return;
+            _dbContext.Users.Remove(dbUser);
         }
     }
 }
