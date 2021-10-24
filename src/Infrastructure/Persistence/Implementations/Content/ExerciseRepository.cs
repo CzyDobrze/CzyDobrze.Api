@@ -6,7 +6,7 @@ using CzyDobrze.Application.Common.Interfaces.Persistence.Content;
 using CzyDobrze.Domain.Content.Exercise;
 using Microsoft.EntityFrameworkCore;
 
-namespace CzyDobrze.Infrastructure.Persistence.Implementations
+namespace CzyDobrze.Infrastructure.Persistence.Implementations.Content
 {
     public class ExerciseRepository : IExerciseRepository
     {

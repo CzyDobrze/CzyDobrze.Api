@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CzyDobrze.Infrastructure.Persistence.Identity;
 
-namespace CzyDobrze.Infrastructure.Persistence.Implementations
+namespace CzyDobrze.Infrastructure.Persistence.Identity
 {
     public interface IDbUserRepository
     {

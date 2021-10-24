@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using CzyDobrze.Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace CzyDobrze.Infrastructure.Persistence.Implementations
+namespace CzyDobrze.Infrastructure.Persistence.Implementations.Identity
 {
     public class DbUserRepository : IDbUserRepository
     {

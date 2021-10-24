@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using CzyDobrze.Application.Common.Interfaces.Persistence.Content;
 using CzyDobrze.Domain.Content.Textbook;
 using Microsoft.EntityFrameworkCore;
 
-namespace CzyDobrze.Infrastructure.Persistence.Implementations
+namespace CzyDobrze.Infrastructure.Persistence.Implementations.Content
 {
     public class TextbookRepository : ITextbookRepository
     {

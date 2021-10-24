@@ -1,7 +1,11 @@
 ﻿using CzyDobrze.Application.Common.Interfaces;
 using CzyDobrze.Application.Common.Interfaces.Persistence.Content;
 using CzyDobrze.Application.Common.Interfaces.Persistence.Users;
+using CzyDobrze.Infrastructure.Persistence.Identity;
 using CzyDobrze.Infrastructure.Persistence.Implementations;
+using CzyDobrze.Infrastructure.Persistence.Implementations.Content;
+using CzyDobrze.Infrastructure.Persistence.Implementations.Identity;
+using CzyDobrze.Infrastructure.Persistence.Implementations.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 

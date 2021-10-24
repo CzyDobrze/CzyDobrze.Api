@@ -6,7 +6,7 @@ using CzyDobrze.Application.Common.Interfaces.Persistence.Users;
 using CzyDobrze.Domain.Users.Moderator;
 using Microsoft.EntityFrameworkCore;
 
-namespace CzyDobrze.Infrastructure.Persistence.Implementations
+namespace CzyDobrze.Infrastructure.Persistence.Implementations.Users
 {
     public class ModeratorRepository : IModeratorRepository
     {
