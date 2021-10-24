@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CzyDobrze.Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,14 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations.Identity
         public async Task<IEnumerable<DbUser>> ReadAll()
         {
             return await _dbContext.Users.ToArrayAsync();
+        }
+
+        public async Task<Guid> FindByAuth0Id(string auth0Id)
+        {
+            return await _dbContext.Users
+                .Where(x => x.Auth0Id == auth0Id)
+                .Select(x => x.Id)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<DbUser> Create(DbUser entity)

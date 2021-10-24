@@ -32,6 +32,14 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations.Users
                 .ToArrayAsync();
         }
 
+        public async Task<bool> Any(Guid id)
+        {
+            return await _dbContext.Users
+                .Where(x => x.Id == id)
+                .Select(x => x.IsModerator)
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<Moderator> Create(Moderator entity)
         {
             var dbUser = await _dbContext.Users.FindAsync(entity.Id);

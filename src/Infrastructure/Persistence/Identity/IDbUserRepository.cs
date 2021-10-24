@@ -8,6 +8,8 @@ namespace CzyDobrze.Infrastructure.Persistence.Identity
     {
         Task<DbUser> ReadById(Guid id);
         Task<IEnumerable<DbUser>> ReadAll();
+
+        Task<Guid> FindByAuth0Id(string auth0Id);
         
         Task<DbUser> Create(DbUser entity);
         Task<DbUser> Update(DbUser entity);

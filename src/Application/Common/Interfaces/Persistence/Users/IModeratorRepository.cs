@@ -10,6 +10,8 @@ namespace CzyDobrze.Application.Common.Interfaces.Persistence.Users
         // TODO implementation
         Task<Moderator> ReadById(Guid id);
         Task<IEnumerable<Moderator>> ReadAll();
+
+        Task<bool> Any(Guid id);
         
         Task<Moderator> Create(Moderator entity);
         Task<Moderator> Update(Moderator entity);

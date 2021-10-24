@@ -10,6 +10,8 @@ namespace CzyDobrze.Application.Common.Interfaces.Persistence.Users
         // TODO implementation
         Task<Contributor> ReadById(Guid id);
         Task<IEnumerable<Contributor>> ReadAll();
+
+        Task<bool> Any(Guid id);
         
         Task<Contributor> Create(Contributor entity);
         Task<Contributor> Update(Contributor entity);
