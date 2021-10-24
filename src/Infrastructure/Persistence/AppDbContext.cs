@@ -10,6 +10,7 @@ using CzyDobrze.Domain.Content.Comment;
 using CzyDobrze.Domain.Content.Exercise;
 using CzyDobrze.Domain.Content.Section;
 using CzyDobrze.Domain.Content.Textbook;
+using CzyDobrze.Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace CzyDobrze.Infrastructure.Persistence
@@ -29,6 +30,8 @@ namespace CzyDobrze.Infrastructure.Persistence
         public DbSet<Answer> Answers { get; set; }
         public DbSet<ExerciseComment> ExerciseComments { get; set; }
         public DbSet<AnswerComment> AnswerComments { get; set; }
+        
+        public DbSet<DbUser> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
