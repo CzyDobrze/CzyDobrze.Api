@@ -1,12 +1,12 @@
-﻿using CzyDobrze.Domain.Content.Answer;
+﻿using CzyDobrze.Domain.Content.Textbook;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CzyDobrze.Infrastructure.Persistence.TypeConfigurations
+namespace CzyDobrze.Infrastructure.Persistence.TypeConfigurations.Content
 {
-    public class AnswerTypeConfiguration : IEntityTypeConfiguration<Answer>
+    public class TextbookTypeConfiguration : IEntityTypeConfiguration<Textbook>
     {
-        public void Configure(EntityTypeBuilder<Answer> builder)
+        public void Configure(EntityTypeBuilder<Textbook> builder)
         {
             builder.HasKey(x => x.Id);
             

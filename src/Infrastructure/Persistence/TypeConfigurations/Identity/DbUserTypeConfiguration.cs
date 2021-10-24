@@ -1,14 +1,16 @@
-﻿using CzyDobrze.Domain.Content.Textbook;
+﻿using CzyDobrze.Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CzyDobrze.Infrastructure.Persistence.TypeConfigurations
+namespace CzyDobrze.Infrastructure.Persistence.TypeConfigurations.Identity
 {
-    public class TextbookTypeConfiguration : IEntityTypeConfiguration<Textbook>
+    public class DbUserTypeConfiguration : IEntityTypeConfiguration<DbUser>
     {
-        public void Configure(EntityTypeBuilder<Textbook> builder)
+        public void Configure(EntityTypeBuilder<DbUser> builder)
         {
             builder.HasKey(x => x.Id);
+
+            builder.ToTable("Users");
             
             builder.Property(x => x.Created)
                 .HasColumnType("datetime")

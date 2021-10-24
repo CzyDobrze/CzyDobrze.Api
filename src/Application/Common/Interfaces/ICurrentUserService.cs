@@ -8,6 +8,7 @@ namespace CzyDobrze.Application.Common.Interfaces
 {
     public interface ICurrentUserService
     {
+        // TODO implementation
         Task<User> GetUser();
         Task<Contributor> GetContributor();
         Task<Moderator> GetModerator();

@@ -1,13 +1,18 @@
-﻿using CzyDobrze.Domain.Content.Section;
+﻿using CzyDobrze.Domain.Content.Answer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CzyDobrze.Infrastructure.Persistence.TypeConfigurations
+namespace CzyDobrze.Infrastructure.Persistence.TypeConfigurations.Content
 {
-    public class SectionTypeConfiguration : IEntityTypeConfiguration<Section>
+    public class AnswerTypeConfiguration : IEntityTypeConfiguration<Answer>
     {
-        public void Configure(EntityTypeBuilder<Section> builder)
+        public void Configure(EntityTypeBuilder<Answer> builder)
         {
+            builder
+                .HasOne(x => x.Author)
+                .WithMany()
+                .IsRequired();
+                
             builder.HasKey(x => x.Id);
             
             builder.Property(x => x.Created)

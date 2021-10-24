@@ -2,12 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CzyDobrze.Infrastructure.Persistence.TypeConfigurations
+namespace CzyDobrze.Infrastructure.Persistence.TypeConfigurations.Content.Votes
 {
-    public class AnswerCommentVoteTypeConfiguration : IEntityTypeConfiguration<AnswerCommentVote>
+    public class AnswerVoteTypeConfiguration : IEntityTypeConfiguration<AnswerVote>
     {
-        public void Configure(EntityTypeBuilder<AnswerCommentVote> builder)
+        public void Configure(EntityTypeBuilder<AnswerVote> builder)
         {
+            builder
+                .HasOne(x => x.Voter)
+                .WithMany()
+                .IsRequired();
+            
             builder.HasKey(x => x.Id);
             
             builder.Property(x => x.Created)

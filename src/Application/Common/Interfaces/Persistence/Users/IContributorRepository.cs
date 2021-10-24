@@ -7,8 +7,11 @@ namespace CzyDobrze.Application.Common.Interfaces.Persistence.Users
 {
     public interface IContributorRepository
     {
+        // TODO implementation
         Task<Contributor> ReadById(Guid id);
         Task<IEnumerable<Contributor>> ReadAll();
+
+        Task<bool> Any(Guid id);
         
         Task<Contributor> Create(Contributor entity);
         Task<Contributor> Update(Contributor entity);

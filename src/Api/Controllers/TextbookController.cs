@@ -11,6 +11,7 @@ using CzyDobrze.Application.Textbooks.Commands.UpdateTextbook;
 using CzyDobrze.Domain.Content.Textbook;
 using CzyDobrze.Domain.Content.Section;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,6 +48,7 @@ namespace CzyDobrze.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Textbook))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -58,6 +60,7 @@ namespace CzyDobrze.Api.Controllers
         }
         
         [HttpPut("{id:guid}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Textbook))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -68,6 +71,7 @@ namespace CzyDobrze.Api.Controllers
         }
         
         [HttpDelete("{id:guid}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

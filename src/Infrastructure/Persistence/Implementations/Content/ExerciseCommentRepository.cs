@@ -3,59 +3,58 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CzyDobrze.Application.Common.Interfaces.Persistence.Content;
-using CzyDobrze.Domain.Content.Answer;
+using CzyDobrze.Domain.Content.Comment;
 using Microsoft.EntityFrameworkCore;
 
-namespace CzyDobrze.Infrastructure.Persistence.Implementations
+namespace CzyDobrze.Infrastructure.Persistence.Implementations.Content
 {
-    public class AnswerRepository : IAnswerRepository
+    public class ExerciseCommentRepository : IExerciseCommentRepository
     {
         private readonly AppDbContext _dbContext;
 
-        public AnswerRepository(AppDbContext dbContext)
+        public ExerciseCommentRepository(AppDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public async Task<Answer> ReadById(Guid id)
+        public async Task<ExerciseComment> ReadById(Guid id)
         {
-            return await _dbContext.Answers
-                .Include(x => x.AnswerComments)
+            return await _dbContext.ExerciseComments
                 .Include(x => x.Votes)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<IEnumerable<Answer>> ReadAllFromGivenExerciseId(Guid id)
+        public async Task<IEnumerable<ExerciseComment>> ReadAllFromGivenExerciseId(Guid id)
         {
             return await _dbContext.Exercises
                 .Where(x => x.Id == id)
-                .Select(x => x.Answers)
+                .Select(x => x.Comments)
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<Answer> Create(Guid parentId, Answer entity)
+        public async Task<ExerciseComment> Create(Guid parentId, ExerciseComment entity)
         {
             var parent = await _dbContext.Exercises.FindAsync(parentId);
             
-            parent.AddAnswer(entity);
+            parent.AddComment(entity);
             
             var update = _dbContext.Exercises.Update(parent);
             await _dbContext.SaveChangesAsync();
 
-            return update.Entity.Answers.First();
+            return update.Entity.Comments.First();
         }
 
-        public async Task<Answer> Update(Answer entity)
+        public async Task<ExerciseComment> Update(ExerciseComment entity)
         {
-            var update = _dbContext.Answers.Update(entity);
+            var update = _dbContext.ExerciseComments.Update(entity);
             await _dbContext.SaveChangesAsync();
 
             return update.Entity;
         }
 
-        public async Task Delete(Answer entity)
+        public async Task Delete(ExerciseComment entity)
         {
-            _dbContext.Answers.Remove(entity);
+            _dbContext.ExerciseComments.Remove(entity);
             await _dbContext.SaveChangesAsync();
         }
     }

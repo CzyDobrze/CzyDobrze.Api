@@ -7,10 +7,10 @@ namespace CzyDobrze.Application.Common.Interfaces.Persistence.Users
 {
     public interface IUserRepository
     {
+        // TODO implementation
         Task<User> ReadById(Guid id);
         Task<IEnumerable<User>> ReadAll();
         
-        Task<User> Create(User entity);
         Task<User> Update(User entity);
         Task Delete(User entity);
     }

@@ -2,12 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CzyDobrze.Infrastructure.Persistence.TypeConfigurations
+namespace CzyDobrze.Infrastructure.Persistence.TypeConfigurations.Content.Comments
 {
     public class AnswerCommentTypeConfiguration : IEntityTypeConfiguration<AnswerComment>
     {
         public void Configure(EntityTypeBuilder<AnswerComment> builder)
         {
+            builder
+                .HasOne(x => x.Author)
+                .WithMany()
+                .IsRequired();
+            
             builder.HasKey(x => x.Id);
             
             builder.Property(x => x.Created)

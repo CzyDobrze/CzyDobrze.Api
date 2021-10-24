@@ -3,14 +3,16 @@ using System;
 using CzyDobrze.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CzyDobrze.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211024153043_AddAuthorPropertyToContentEntities")]
+    partial class AddAuthorPropertyToContentEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -326,12 +328,6 @@ namespace CzyDobrze.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("DisplayName")
-                        .HasColumnType("TEXT");
-
                     b.Property<uint>("Points")
                         .HasColumnType("INTEGER");
 
@@ -340,10 +336,10 @@ namespace CzyDobrze.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToView("Contributors");
+                    b.ToView("Contributor");
 
                     b
-                        .HasAnnotation("Relational:SqlQuery", "SELECT Id, Created, Updated, DisplayName, Points FROM Users WHERE IsContributor = 1");
+                        .HasAnnotation("Relational:SqlQuery", "Select Id, Created, Updated, DisplayName, Points FROM Users WHERE IsContributor = 1");
                 });
 
             modelBuilder.Entity("CzyDobrze.Domain.Users.Moderator.Moderator", b =>
@@ -352,27 +348,21 @@ namespace CzyDobrze.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("TEXT");
-
                     b.Property<DateTime>("Updated")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToView("Moderators");
+                    b.ToView("Moderator");
 
                     b
-                        .HasAnnotation("Relational:SqlQuery", "SELECT Id, Created, Updated FROM Users Where IsModerator = 1");
+                        .HasAnnotation("Relational:SqlQuery", "Select Id, Created, Updated FROM Users Where IsModerator = 1");
                 });
 
             modelBuilder.Entity("CzyDobrze.Domain.Users.User.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("Created")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DisplayName")
@@ -383,7 +373,7 @@ namespace CzyDobrze.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToView("DomainUsers");
+                    b.ToView("User");
 
                     b
                         .HasAnnotation("Relational:SqlQuery", "SELECT Id, Created, Updated, DisplayName FROM Users");

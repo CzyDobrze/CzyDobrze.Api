@@ -1,8 +1,8 @@
-using System.Text.Json.Serialization;
 using CzyDobrze.Api.Filters;
 using CzyDobrze.Api.Utils;
 using CzyDobrze.Application;
 using CzyDobrze.Infrastructure;
+using CzyDobrze.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -37,6 +37,7 @@ namespace CzyDobrze.Api
             });
             
             services.AddSwagger();
+            services.AddAuth0();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -46,12 +47,13 @@ namespace CzyDobrze.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseConfiguredSwagger();
-
+            app.UseInfrastructure();
+            
             app.UseRouting();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             
-            app.UseAuthorization();
+            app.UseConfiguredSwagger();
+            app.UseAuth0();
 
             app.UseEndpoints(endpoints =>
             {

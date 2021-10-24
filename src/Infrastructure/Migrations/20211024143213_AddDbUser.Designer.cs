@@ -3,14 +3,16 @@ using System;
 using CzyDobrze.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CzyDobrze.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211024143213_AddDbUser")]
+    partial class AddDbUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,9 +26,6 @@ namespace CzyDobrze.Infrastructure.Migrations
 
                     b.Property<bool>("Accepted")
                         .HasColumnType("INTEGER");
-
-                    b.Property<Guid>("AuthorId")
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("Content")
                         .HasColumnType("TEXT");
@@ -46,8 +45,6 @@ namespace CzyDobrze.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
-
                     b.HasIndex("ExerciseId");
 
                     b.ToTable("Answers");
@@ -60,9 +57,6 @@ namespace CzyDobrze.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("AnswerId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("AuthorId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Content")
@@ -82,8 +76,6 @@ namespace CzyDobrze.Infrastructure.Migrations
 
                     b.HasIndex("AnswerId");
 
-                    b.HasIndex("AuthorId");
-
                     b.ToTable("AnswerComments");
                 });
 
@@ -91,9 +83,6 @@ namespace CzyDobrze.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("AuthorId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Content")
@@ -113,8 +102,6 @@ namespace CzyDobrze.Infrastructure.Migrations
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
 
                     b.HasIndex("ExerciseId");
 
@@ -240,14 +227,9 @@ namespace CzyDobrze.Infrastructure.Migrations
                     b.Property<int>("Value")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("VoterId")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CommentId");
-
-                    b.HasIndex("VoterId");
 
                     b.ToTable("AnswerCommentVote");
                 });
@@ -274,14 +256,9 @@ namespace CzyDobrze.Infrastructure.Migrations
                     b.Property<int>("Value")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("VoterId")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AnswerId");
-
-                    b.HasIndex("VoterId");
 
                     b.ToTable("AnswerVote");
                 });
@@ -308,14 +285,9 @@ namespace CzyDobrze.Infrastructure.Migrations
                     b.Property<int>("Value")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("VoterId")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CommentId");
-
-                    b.HasIndex("VoterId");
 
                     b.ToTable("ExerciseCommentVote");
                 });
@@ -326,12 +298,6 @@ namespace CzyDobrze.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("DisplayName")
-                        .HasColumnType("TEXT");
-
                     b.Property<uint>("Points")
                         .HasColumnType("INTEGER");
 
@@ -340,10 +306,8 @@ namespace CzyDobrze.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToView("Contributors");
-
                     b
-                        .HasAnnotation("Relational:SqlQuery", "SELECT Id, Created, Updated, DisplayName, Points FROM Users WHERE IsContributor = 1");
+                        .HasAnnotation("Relational:SqlQuery", "Select Id, Created, Updated, DisplayName, Points FROM Users WHERE IsContributor = 1");
                 });
 
             modelBuilder.Entity("CzyDobrze.Domain.Users.Moderator.Moderator", b =>
@@ -352,27 +316,19 @@ namespace CzyDobrze.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("TEXT");
-
                     b.Property<DateTime>("Updated")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToView("Moderators");
-
                     b
-                        .HasAnnotation("Relational:SqlQuery", "SELECT Id, Created, Updated FROM Users Where IsModerator = 1");
+                        .HasAnnotation("Relational:SqlQuery", "Select Id, Created, Updated FROM Users Where IsModerator = 1");
                 });
 
             modelBuilder.Entity("CzyDobrze.Domain.Users.User.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("Created")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DisplayName")
@@ -382,8 +338,6 @@ namespace CzyDobrze.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.ToView("DomainUsers");
 
                     b
                         .HasAnnotation("Relational:SqlQuery", "SELECT Id, Created, Updated, DisplayName FROM Users");
@@ -427,17 +381,9 @@ namespace CzyDobrze.Infrastructure.Migrations
 
             modelBuilder.Entity("CzyDobrze.Domain.Content.Answer.Answer", b =>
                 {
-                    b.HasOne("CzyDobrze.Domain.Users.Contributor.Contributor", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("CzyDobrze.Domain.Content.Exercise.Exercise", "Exercise")
                         .WithMany("Answers")
                         .HasForeignKey("ExerciseId");
-
-                    b.Navigation("Author");
 
                     b.Navigation("Exercise");
                 });
@@ -448,30 +394,14 @@ namespace CzyDobrze.Infrastructure.Migrations
                         .WithMany("AnswerComments")
                         .HasForeignKey("AnswerId");
 
-                    b.HasOne("CzyDobrze.Domain.Users.Contributor.Contributor", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Answer");
-
-                    b.Navigation("Author");
                 });
 
             modelBuilder.Entity("CzyDobrze.Domain.Content.Comment.ExerciseComment", b =>
                 {
-                    b.HasOne("CzyDobrze.Domain.Users.Contributor.Contributor", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("CzyDobrze.Domain.Content.Exercise.Exercise", "Exercise")
                         .WithMany("Comments")
                         .HasForeignKey("ExerciseId");
-
-                    b.Navigation("Author");
 
                     b.Navigation("Exercise");
                 });
@@ -500,15 +430,7 @@ namespace CzyDobrze.Infrastructure.Migrations
                         .WithMany("Votes")
                         .HasForeignKey("CommentId");
 
-                    b.HasOne("CzyDobrze.Domain.Users.Contributor.Contributor", "Voter")
-                        .WithMany()
-                        .HasForeignKey("VoterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Comment");
-
-                    b.Navigation("Voter");
                 });
 
             modelBuilder.Entity("CzyDobrze.Domain.Content.Vote.AnswerVote", b =>
@@ -517,15 +439,7 @@ namespace CzyDobrze.Infrastructure.Migrations
                         .WithMany("Votes")
                         .HasForeignKey("AnswerId");
 
-                    b.HasOne("CzyDobrze.Domain.Users.Contributor.Contributor", "Voter")
-                        .WithMany()
-                        .HasForeignKey("VoterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Answer");
-
-                    b.Navigation("Voter");
                 });
 
             modelBuilder.Entity("CzyDobrze.Domain.Content.Vote.ExerciseCommentVote", b =>
@@ -534,15 +448,7 @@ namespace CzyDobrze.Infrastructure.Migrations
                         .WithMany("Votes")
                         .HasForeignKey("CommentId");
 
-                    b.HasOne("CzyDobrze.Domain.Users.Contributor.Contributor", "Voter")
-                        .WithMany()
-                        .HasForeignKey("VoterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Comment");
-
-                    b.Navigation("Voter");
                 });
 
             modelBuilder.Entity("CzyDobrze.Domain.Content.Answer.Answer", b =>

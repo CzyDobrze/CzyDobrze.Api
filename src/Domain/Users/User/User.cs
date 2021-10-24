@@ -1,4 +1,5 @@
-﻿using CzyDobrze.Core;
+﻿using System;
+using CzyDobrze.Core;
 using CzyDobrze.Domain.Users.User.Exceptions;
 
 namespace CzyDobrze.Domain.Users.User
@@ -13,6 +14,11 @@ namespace CzyDobrze.Domain.Users.User
         public User(string displayName)
         {
             SetDisplayName(displayName);
+        }
+
+        public User(Guid id, DateTime created, DateTime updated, string displayName) : base(id, created, updated)
+        {
+            DisplayName = displayName;
         }
         
         public string DisplayName { get; private set; }

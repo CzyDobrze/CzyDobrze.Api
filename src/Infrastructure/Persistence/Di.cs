@@ -1,6 +1,10 @@
-﻿using CzyDobrze.Application.Common.Interfaces;
-using CzyDobrze.Application.Common.Interfaces.Persistence.Content;
-using CzyDobrze.Infrastructure.Persistence.Implementations;
+﻿using CzyDobrze.Application.Common.Interfaces.Persistence.Content;
+using CzyDobrze.Application.Common.Interfaces.Persistence.Users;
+using CzyDobrze.Infrastructure.Persistence.Identity;
+using CzyDobrze.Infrastructure.Persistence.Implementations.Content;
+using CzyDobrze.Infrastructure.Persistence.Implementations.Identity;
+using CzyDobrze.Infrastructure.Persistence.Implementations.Users;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -25,10 +29,22 @@ namespace CzyDobrze.Infrastructure.Persistence
             services.AddTransient<IExerciseCommentRepository, ExerciseCommentRepository>();
             services.AddTransient<IAnswerCommentRepository, AnswerCommentRepository>();
             
-            // ToDo Remove Dummy Current User Service
-            services.AddTransient<ICurrentUserService, DummyCurrentUserService>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IContributorRepository, ContributorRepository>();
+            services.AddTransient<IModeratorRepository, ModeratorRepository>();
+            
+            services.AddTransient<IDbUserRepository, DbUserRepository>();
             
             return services;
+        }
+
+        public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
+        {
+            app
+                .ApplicationServices.CreateScope().ServiceProvider
+                .GetService<AppDbContext>()?.Database.Migrate();
+
+            return app;
         }
     }
 }
