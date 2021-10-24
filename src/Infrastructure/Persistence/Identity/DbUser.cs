@@ -1,9 +1,19 @@
 ﻿using System;
+using MediatR;
 
 namespace CzyDobrze.Infrastructure.Persistence.Identity
 {
     public class DbUser
     {
+        public DbUser(string displayName, string auth0Id, uint points = 0, bool isContributor = false, bool isModerator = false)
+        {
+            DisplayName = displayName;
+            Points = points;
+            IsContributor = isContributor;
+            IsModerator = isModerator;
+            Auth0Id = auth0Id;
+        }
+        
         public Guid Id { get; set; }
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
