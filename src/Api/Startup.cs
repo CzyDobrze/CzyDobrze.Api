@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using CzyDobrze.Api.Filters;
 using CzyDobrze.Api.Utils;
 using CzyDobrze.Application;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 
 namespace CzyDobrze.Api
 {
@@ -29,6 +31,9 @@ namespace CzyDobrze.Api
             services.AddControllers(options =>
             {
                 options.Filters.Add(new ApiExceptionFilter(Environment));
+            }).AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
             
             services.AddSwagger();

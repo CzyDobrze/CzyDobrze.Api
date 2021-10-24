@@ -1,18 +1,21 @@
-﻿using CzyDobrze.Domain.Content.Textbook;
+﻿using System;
+using CzyDobrze.Domain.Content.Textbook;
 using MediatR;
 
-namespace CzyDobrze.Application.Textbooks.Command.CreateTextbook
+namespace CzyDobrze.Application.Textbooks.Commands.UpdateTextbook
 {
-    public class CreateTextbook : IRequest<Textbook>
+    public class UpdateTextbook : IRequest<Textbook>
     {
-        public CreateTextbook(string title, string subject, string publisher, int classYear)
+        public UpdateTextbook(Guid id, string title, string subject, string publisher, int classYear)
         {
+            Id = id;
             Title = title;
             Subject = subject;
             Publisher = publisher;
             ClassYear = classYear;
         }
         
+        public Guid Id { get; set; }
         public string Title { get; set; }
         public string Subject { get; set; }
         public string Publisher { get; set; }

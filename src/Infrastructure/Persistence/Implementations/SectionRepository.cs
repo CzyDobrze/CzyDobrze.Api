@@ -21,6 +21,7 @@ namespace CzyDobrze.Infrastructure.Persistence.Implementations
         {
             return await _dbContext.Sections
                 .Include(x => x.Exercises)
+                .Include(x => x.Textbook)
                 .SingleOrDefaultAsync();
         }
 

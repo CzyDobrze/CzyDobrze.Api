@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CzyDobrze.Domain.Content.Section;
-using CzyDobrze.Domain.Content.Textbook;
 
 namespace CzyDobrze.Application.Common.Interfaces.Persistence.Content
 {
